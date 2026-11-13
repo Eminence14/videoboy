@@ -117,7 +117,7 @@ cite { font-style: italic; }
 
 /* ---------------------------------------------------------------- hero */
 .hero { max-width: var(--max); margin: 0 auto; padding: 64px 20px 40px; }
-.hero-copy { max-width: 760px; }
+.hero-copy { max-width: 1100px; }
 .eyebrow { display: flex; align-items: center; gap: 10px; margin: 0 0 18px; font-family: var(--label); font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tan-ink); }
 .led { width: 9px; height: 9px; border-radius: 50%; background: var(--tan); box-shadow: 0 0 8px var(--tan); }
 .wordmark {
@@ -130,7 +130,8 @@ cite { font-style: italic; }
   color: var(--ink);
   text-shadow: 0.06em 0.06em 0 var(--tan);
 }
-.lede { margin: 28px 0 0; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; letter-spacing: -0.01em; color: var(--ink); max-width: 30ch; }
+.lede { margin: 28px 0 0; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.4; letter-spacing: -0.01em; color: var(--ink); max-width: 70ch; text-wrap: balance; }
+@media (max-width: 900px) { .lede-br { display: none; } }
 .try { margin: 14px 0 0; color: var(--ink-2); font-size: 16px; }
 kbd {
   display: inline-block;

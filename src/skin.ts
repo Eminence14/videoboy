@@ -477,8 +477,14 @@ class VideoboySkinElement extends HTMLElement {
     const forward = (e: KeyboardEvent) => {
       if (this.getAttribute('keyboard') !== 'page' || e.defaultPrevented || !container.isConnected) return;
       const t = e.target as HTMLElement;
-      if (t !== document.body && t !== document.documentElement) return;
-      if (!KEYS.has(e.key.toLowerCase()) || e.ctrlKey || e.metaKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      if (!KEYS.has(key) || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (t !== document.body && t !== document.documentElement) {
+        // From a focused page control (a link, a swatch, a button) only the letter and number keys pass:
+        // Space, Enter, Shift and the arrows belong to that control. Fields and other players keep every key.
+        if (key.length !== 1 || key === ' ') return;
+        if (t.closest?.('input:not([type="radio"]):not([type="checkbox"]):not([type="button"]):not([type="range"]):not([type="color"]), textarea, select, [contenteditable]:not([contenteditable="false"]), videoboy-skin, media-container, video-player')) return;
+      }
       if (e.type === 'keydown' && e.key !== 'Shift') e.preventDefault(); // Space would scroll the page
       container.dispatchEvent(new KeyboardEvent(e.type, { key: e.key, code: e.code, shiftKey: e.shiftKey, repeat: e.repeat, bubbles: true, cancelable: true }));
     };
