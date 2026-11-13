@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>capture</title>
+<style>body{margin:0;padding:40px;background:#F4ECDF} #frame{margin:0 auto}</style>
+<script type="module">
+import '/src/skin.ts'; import '/src/videoboy.css';
+const p=new URLSearchParams(location.search);
+document.getElementById('frame').style.maxWidth=(p.get('w')||'720')+'px';
+const s=document.getElementById('skin'); if(p.get('theme')) s.dataset.theme=p.get('theme');
+const v=document.createElement('video'); v.src='/media/'+(p.get('clip')||'night')+'.mp4'; v.playsInline=true; v.preload='auto';
+v.innerHTML='<track kind="captions" src="/media/captions.vtt" srclang="en" label="English" default>'; s.prepend(v);
+</script></head>
+<body><div id="frame"><video-player><videoboy-skin id="skin" poster-time="12"></videoboy-skin></video-player></div></body></html>

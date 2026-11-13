@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VIDEOBOY · a dot-matrix handheld skin for Video.js v10</title>
+  <meta name="description" content="VIDEOBOY is a Video.js v10 skin built like a handheld console. Full colour while it plays; the moment it stops, the screen becomes a four-tone dot-matrix panel. By Victor Ibidunmoye." />
+  <meta property="og:title" content="VIDEOBOY · a dot-matrix handheld skin for Video.js v10" />
+  <meta property="og:description" content="Full colour while it plays. Four tones the moment it stops." />
+  <meta property="og:image" content="/og.png" />
+  <meta name="theme-color" content="#F4ECDF" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='1' y='0' width='14' height='16' rx='2' fill='%23EEE0C6'/%3E%3Crect x='3' y='2' width='10' height='7' fill='%2386391A'/%3E%3Crect x='4' y='3' width='8' height='5' fill='%23F9D7A8'/%3E%3Cpath d='M3 12h3M4 11v3' stroke='%232B231E'/%3E%3Crect x='10' y='11' width='2' height='2' fill='%23F26A1B'/%3E%3Crect x='12' y='10' width='2' height='2' fill='%23F26A1B'/%3E%3C/svg%3E" />
+  <script type="module" src="/demo/main.ts"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="nav" aria-label="Site">
+    <a class="nav-logo" href="#top" aria-label="VIDEOBOY, top of page">VIDEOBOY</a>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#idea">Idea</a></li>
+        <li><a href="#anatomy">Anatomy</a></li>
+        <li><a href="#states">States</a></li>
+        <li><a href="#yours">Make it yours</a></li>
+        <li><a href="#sizes">Sizes</a></li>
+        <li><a href="#access">Access</a></li>
+        <li><a href="#install">Install</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <!-- ============================================================ hero -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="led" aria-hidden="true"></span>A skin for Video.js v10</p>
+        <h1 id="hero-title" class="wordmark">VIDEOBOY</h1>
+        <p class="lede">A video player built like a handheld. Full colour while it plays. The moment it stops, the screen becomes a four-tone dot-matrix panel.</p>
+        <p class="try">Press <kbd>A</kbd> or <kbd>Space</kbd> to start. Pause any time and watch the screen change.</p>
+      </div>
+
+      <div class="hero-player">
+        <video-player id="player">
+          <videoboy-skin id="skin" poster-time="36"></videoboy-skin>
+        </video-player>
+      </div>
+
+      <div class="hero-meta">
+        <fieldset class="chips" aria-describedby="theme-note">
+          <legend>Theme</legend>
+          <label class="chip"><input type="radio" name="hero-theme" value="tangerine" checked /><span class="sw" style="--a:#F26A1B;--b:#F9D7A8;--c:#EADAC0" aria-hidden="true"></span>Tangerine</label>
+          <label class="chip"><input type="radio" name="hero-theme" value="classic" /><span class="sw" style="--a:#A3184F;--b:#8BAC0F;--c:#C9C5BE" aria-hidden="true"></span>Classic</label>
+          <label class="chip"><input type="radio" name="hero-theme" value="night" /><span class="sw" style="--a:#4FC8F5;--b:#144A6C;--c:#2A2B32" aria-hidden="true"></span>Night</label>
+        </fieldset>
+        <p id="theme-note" class="credit">Film: <cite>Tears of Steel</cite>, © Blender Foundation, <a href="https://mango.blender.org">mango.blender.org</a>, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Streamed from Mux at 1080p.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ idea -->
+    <section class="sec" id="idea" aria-labelledby="idea-title">
+      <p class="num">01 · The idea</p>
+      <h2 id="idea-title">The screen is the skin.</h2>
+      <div class="cols">
+        <p>Most players lay a strip of controls over the picture and leave it there. VIDEOBOY moves them off the picture entirely. The film sits in a screen bezel, and the controls live on the console below it, where a handheld keeps them. Nothing covers the picture while it plays.</p>
+        <p>The handheld’s best-known part is its screen, so that is what carries the idea. Pause, and the frame pixelates, then snaps to four tones of a reflective LCD. Every stop gets its own screen: a boot logo, a start menu, a pause window, an end card, and static when the signal drops.</p>
+      </div>
+      <ol class="trio">
+        <li><figure><img src="/states/tangerine-720-03-playing.webp" alt="VIDEOBOY playing: the film in full colour inside the bezel, a caption at the foot, the console below." width="720" height="531" loading="lazy" /><figcaption><b>Plays</b> in full colour. Nothing sits on the picture but captions.</figcaption></figure></li>
+        <li><figure><img src="/states/tangerine-720-09-paused.webp" alt="VIDEOBOY paused: the same frame redrawn as tangerine dot-matrix pixels with a small Pause window." width="720" height="531" loading="lazy" /><figcaption><b>Stops</b> in four tones. Pixelates in, snaps to the panel.</figcaption></figure></li>
+        <li><figure><img src="/states/tangerine-720-11-ended.webp" alt="VIDEOBOY at the end: the last frame in dot-matrix with a window reading The end, A to play again." width="720" height="531" loading="lazy" /><figcaption><b>Ends</b> on its own card. A plays it again.</figcaption></figure></li>
+      </ol>
+    </section>
+
+    <!-- ============================================================ anatomy -->
+    <section class="sec" id="anatomy" aria-labelledby="anatomy-title">
+      <p class="num">02 · Anatomy</p>
+      <h2 id="anatomy-title">Every part of the handheld is a real control.</h2>
+      <p class="intro">Nothing on the console is decoration. Each part is a Video.js v10 component, and each one shows its state on its face.</p>
+      <figure class="anatomy">
+        <div class="anatomy-art">
+          <img src="/states/anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 captions key, 5 fullscreen key, 6 B key, 7 A key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
+          <ol class="pins" aria-hidden="true" id="pins"></ol>
+        </div>
+        <ol class="parts">
+          <li><b>Power LED</b><span>Lit while it plays, low when stopped, blinking while it buffers, red on error.</span></li>
+          <li><b>D-pad</b><span>Left and right seek 5 seconds. Up and down move the volume one slot. Hold to repeat.</span></li>
+          <li><b>Seek strip</b><span>A cartridge rides a segmented groove. Hover for a dot-matrix preview from the Mux storyboard.</span></li>
+          <li><b>Select · CC</b><span>Captions on and off. The key lights when they are on, and hides if the film has none.</span></li>
+          <li><b>Start · Full</b><span>Fullscreen. The console floats over the film, then steps away to a single line.</span></li>
+          <li><b>B</b><span>Mute. Its face shows the speaker or the muted speaker.</span></li>
+          <li><b>A</b><span>Play, pause, replay. The face changes with the state.</span></li>
+          <li><b>Speaker grille</b><span>The volume slider. Six slots, each lit from the bottom. Drag, click, scroll or use the arrow keys.</span></li>
+        </ol>
+      </figure>
+    </section>
+
+    <!-- ============================================================ states -->
+    <section class="sec" id="states" aria-labelledby="states-title">
+      <p class="num">03 · Every state</p>
+      <h2 id="states-title">Every moment of playback, drawn.</h2>
+      <p class="intro">Fifteen states, captured from the running player, not mocked up.</p>
+      <ul class="gallery" id="gallery"></ul>
+    </section>
+
+    <!-- ============================================================ make it yours -->
+    <section class="sec" id="yours" aria-labelledby="yours-title">
+      <p class="num">04 · Make it yours</p>
+      <h2 id="yours-title">At home on any site.</h2>
+      <p class="intro">A skin ends up on sites its designer never sees. Pick a theme, change one accent colour and one corner, and the whole handheld follows: keys, LED, seek fill, grille, and the LCD tones too.</p>
+      <div class="lab">
+        <form class="lab-controls" id="lab-form" aria-label="Playground settings">
+          <fieldset>
+            <legend>Site</legend>
+            <label><input type="radio" name="site" value="paper" checked /> Paper</label>
+            <label><input type="radio" name="site" value="ink" /> Ink</label>
+            <label><input type="radio" name="site" value="brand" /> Brand</label>
+          </fieldset>
+          <fieldset>
+            <legend>Theme</legend>
+            <label><input type="radio" name="theme" value="tangerine" checked /> Tangerine</label>
+            <label><input type="radio" name="theme" value="classic" /> Classic</label>
+            <label><input type="radio" name="theme" value="night" /> Night</label>
+          </fieldset>
+          <div class="field">
+            <label for="accent">Accent</label>
+            <input id="accent" type="color" value="#f26a1b" />
+            <button type="button" class="link" id="accent-reset">Theme default</button>
+          </div>
+          <div class="field">
+            <label for="corner">Corner</label>
+            <input id="corner" type="range" min="14" max="96" step="2" value="60" aria-describedby="corner-out" />
+            <output id="corner-out" for="corner">60px</output>
+          </div>
+          <div class="field">
+            <label for="width">Width</label>
+            <input id="width" type="range" min="280" max="960" step="10" value="720" aria-describedby="width-out" />
+            <output id="width-out" for="width">720px</output>
+          </div>
+        </form>
+        <div class="lab-stage" id="lab-stage" data-site="paper">
+          <div class="lab-frame" id="lab-frame">
+            <video-player>
+              <videoboy-skin id="lab-skin" poster-time="12" no-chime>
+                <video src="/media/desert.mp4" playsinline preload="auto" crossorigin="anonymous"><track kind="captions" src="/media/captions.vtt" srclang="en" label="English" default /></video>
+              </videoboy-skin>
+            </video-player>
+          </div>
+        </div>
+        <pre class="code" tabindex="0" aria-label="CSS for these settings"><code id="lab-code"></code></pre>
+      </div>
+    </section>
+
+    <!-- ============================================================ sizes -->
+    <section class="sec" id="sizes" aria-labelledby="sizes-title">
+      <p class="num">05 · Sizes</p>
+      <h2 id="sizes-title">One handheld, four layouts.</h2>
+      <p class="intro">The layout follows the player’s own width through container queries, not the window’s. Wide players keep one row. Narrow ones stack the seek strip on top and stand up like the handheld itself. The bezel, labels and keys scale with it; touch targets never drop below 40 px for keys and 24 px for D-pad arms.</p>
+      <ul class="sizes" id="sizes-list"></ul>
+    </section>
+
+    <!-- ============================================================ keys -->
+    <section class="sec" id="keys" aria-labelledby="keys-title">
+      <p class="num">06 · Keyboard</p>
+      <h2 id="keys-title">Every key works, with the player focused.</h2>
+      <dl class="keymap">
+        <div><dt><kbd>Space</kbd><kbd>K</kbd></dt><dd>Play or pause</dd></div>
+        <div><dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Seek 5 seconds</dd></div>
+        <div><dt><kbd>J</kbd><kbd>L</kbd></dt><dd>Seek 10 seconds</dd></div>
+        <div><dt><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Volume, one grille slot</dd></div>
+        <div><dt><kbd>0</kbd>–<kbd>9</kbd></dt><dd>Jump to 0–90%</dd></div>
+        <div><dt><kbd>Home</kbd><kbd>End</kbd></dt><dd>Start or end</dd></div>
+        <div><dt><kbd>M</kbd></dt><dd>Mute</dd></div>
+        <div><dt><kbd>C</kbd></dt><dd>Captions</dd></div>
+        <div><dt><kbd>F</kbd></dt><dd>Fullscreen</dd></div>
+        <div><dt><kbd>Tab</kbd></dt><dd>Next control. The D-pad is one stop; arrows move between its arms.</dd></div>
+      </dl>
+    </section>
+
+    <!-- ============================================================ access -->
+    <section class="sec" id="access" aria-labelledby="access-title">
+      <p class="num">07 · Accessibility</p>
+      <h2 id="access-title">Checked, not assumed.</h2>
+      <ul class="checks" id="checks">
+        <li><b id="axe-count">0</b><span>axe-core violations in 78 runs: WCAG 2.2 AA and best-practice rules, three themes, at 1100, 640 and 360 px, in eight states from boot to error, plus this page.</span></li>
+        <li><b>3 px</b><span>Focus ring on every control, offset from the key so it reads on any shell colour.</span></li>
+        <li><b>Names</b><span>Every key is a Video.js button with its own name and shortcut. The LCD is drawn for the eyes and hidden from screen readers; the status announcer speaks play, pause, seek and volume changes.</span></li>
+        <li><b>Captions</b><span>Set in the system sans on dark plates, never in the pixel font, sized to the player.</span></li>
+        <li><b>Motion</b><span>With reduced motion, the pause screen appears without the mosaic, nothing blinks, and the logo does not drop.</span></li>
+        <li><b>Contrast</b><span id="contrast-note">Labels and timecodes reach at least 6.6:1 on their shell, LCD text at least 6.6:1, in all three themes. Key icons reach at least 5.7:1.</span></li>
+        <li><b>Forced colours</b><span>In Windows high contrast the handheld redraws itself in system colours, with outlined keys and a Highlight seek fill.</span></li>
+        <li><b>Targets</b><span>A, B and the system keys are 40 px or more; D-pad arms are at least 24 px; the seek strip and grille are 44 px tall to grab.</span></li>
+      </ul>
+    </section>
+
+    <!-- ============================================================ install -->
+    <section class="sec" id="install" aria-labelledby="install-title">
+      <p class="num">08 · Install</p>
+      <h2 id="install-title">Two imports and one element.</h2>
+      <p class="intro"><a class="btn" href="/videoboy-skin.zip" download>Download the skin source (zip)</a> Put its <code>src</code> folder in your project, then:</p>
+      <div class="cols">
+        <pre class="code" tabindex="0"><code><span class="c"># Video.js v10 and the Mux media element</span>
+npm i @videojs/html @videojs/mux-video</code></pre>
+        <pre class="code" tabindex="0"><code><span class="k">import</span> <span class="s">'./videoboy/skin'</span>;
+<span class="k">import</span> <span class="s">'./videoboy/videoboy.css'</span>;
+<span class="k">import</span> <span class="s">'@videojs/html/media/mux-video'</span>;</code></pre>
+      </div>
+      <pre class="code" tabindex="0"><code>&lt;video-player&gt;
+  &lt;videoboy-skin data-theme="tangerine" poster-time="36"&gt;
+    &lt;mux-video playback-id="YOUR_PLAYBACK_ID" playsinline crossorigin="anonymous"&gt;&lt;/mux-video&gt;
+  &lt;/videoboy-skin&gt;
+&lt;/video-player&gt;</code></pre>
+      <p class="small">Any <code>&lt;video&gt;</code> works in place of <code>&lt;mux-video&gt;</code>. Cross-origin footage without CORS still plays; its pause screen falls back to an SVG tone filter instead of dots. The skin’s source is Apache-2.0.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p class="wordmark small-mark" aria-hidden="true">VIDEOBOY</p>
+    <p>Designed and built by <a href="https://cad.victoribidunmoye.me">Victor Ibidunmoye</a> for the #Video.js Skins Design Challenge. Skin code under the Apache License 2.0. Fonts: Press Start 2P and Silkscreen, SIL Open Font License.</p>
+    <p>Film: <cite>Tears of Steel</cite> © Blender Foundation, <a href="https://mango.blender.org">mango.blender.org</a>, CC BY 3.0. Playground clips are original artwork made for this page.</p>
+  </footer>
+</body>
+</html>
