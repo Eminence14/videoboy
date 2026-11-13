@@ -356,10 +356,15 @@ export class LcdElement extends HTMLElement {
   }
 
   #size() {
-    const r = this.getBoundingClientRect();
+    // Layout size, not the on-screen box: a CSS transform on any ancestor (a scaled page, a zoomed
+    // stage) would otherwise shrink the canvas and leave the panel's edges uncovered.
+    const box = this.getBoundingClientRect();
+    const sc = this.offsetWidth ? box.width / this.offsetWidth : 1;
+    const r = { width: box.width / (sc || 1), height: box.height / (sc || 1) };
     const dpr = Math.min(2, window.devicePixelRatio || 1);
-    const w = Math.max(1, Math.round(r.width * dpr));
-    const h = Math.max(1, Math.round(r.height * dpr));
+    // Rounded up, so a fractional size never leaves a hairline of video showing at the edge.
+    const w = Math.max(1, Math.ceil(r.width * dpr - 0.01));
+    const h = Math.max(1, Math.ceil(r.height * dpr - 0.01));
     if (this.#canvas.width !== w || this.#canvas.height !== h) {
       this.#canvas.width = w;
       this.#canvas.height = h;

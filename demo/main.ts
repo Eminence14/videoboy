@@ -12,7 +12,7 @@ const local = params.has('local') || !MUX_ID;
 type Cart = { id: string; title: string; tag: string; playback: string; start: number; end: number; poster: number; captions?: string };
 const CARTS: Cart[] = [
   { id: 'tos', title: 'Tears of Steel', tag: 'Sci-fi', playback: MUX_ID ?? '', start: 290, end: 410, poster: 300, captions: '/media/tos-clip-en.vtt' },
-  { id: 'bbb', title: 'Big Buck Bunny', tag: 'Bright', playback: '6AOeSixjz2BTlQyEQKBa7QMb02h6X1EGCoRGqg2b64EM', start: 60, end: 135, poster: 70 },
+  { id: 'bbb', title: 'Big Buck Bunny', tag: 'Bright', playback: 'XOEj66u01Zk00qrVTlj2XATCXMR47qTwhhJZkCfAXuAu00', start: 60, end: 135, poster: 70 },
   { id: 'sintel', title: 'Sintel', tag: 'Dark', playback: 'ewzLhmFBkBzY1txPi3X2rj6CnXaxasOY9yl009THXt8c', start: 530, end: 610, poster: 604 },
   { id: 'cosmos', title: 'Cosmos Laundromat', tag: 'Vivid', playback: 'nyNViKIpM9LM02w2u01MYlBD02q01OBz3GO8Sc5BY02ww01Yc', start: 480, end: 555, poster: 520 },
 ];

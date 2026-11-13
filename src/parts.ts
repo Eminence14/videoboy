@@ -15,6 +15,7 @@ import {
   type PropertyValues,
 } from '@videojs/html';
 import { icon } from './icons';
+import { resolveVideo } from './lcd';
 
 const SEEK_STEP = 5;
 const VOL_STEP = 1 / 6; // one grille slot
@@ -165,6 +166,7 @@ class CaptionsElement extends UIElement {
   readonly #cues = new PlayerController(this, playerContext, selectTextCues);
   #unwatch: (() => void) | null = null;
   #last = '';
+  #media: HTMLVideoElement | null = null;
 
   override disconnectedCallback() {
     super.disconnectedCallback();
@@ -178,8 +180,21 @@ class CaptionsElement extends UIElement {
     if (cues && !this.#unwatch) this.#unwatch = cues.watchTextCues({ kind: ['captions', 'subtitles'] });
     const showing = !!tracks?.subtitlesShowing;
     const lines: string[] = [];
+    // Only tracks the media still has: a source change (a new cartridge) removes the old <track>,
+    // and its last cue must not linger on the new film.
+    const media = resolveVideo(this.closest('.videoboy')?.querySelector(':scope > video, :scope > [src]') ?? null);
+    if (media && media !== this.#media) {
+      this.#media = media;
+      const nudge = () => this.requestUpdate();
+      media.textTracks.addEventListener('removetrack', nudge);
+      media.textTracks.addEventListener('addtrack', nudge);
+      media.addEventListener('emptied', nudge);
+    }
+    const key = (t: { kind: string; label: string; language: string }) => `${t.kind}|${t.label}|${t.language}`;
+    const live = media ? new Set(Array.from(media.textTracks).filter((t) => t.mode === 'showing').map(key)) : null;
     if (showing && cues) {
       for (const tc of cues.textCues) {
+        if (live && !live.has(key(tc.track))) continue;
         if ((tc.track.kind === 'captions' || tc.track.kind === 'subtitles') && tc.track.mode === 'showing') {
           for (const cue of tc.activeCues) lines.push(...String(cue.text ?? '').split(/\n/));
         }

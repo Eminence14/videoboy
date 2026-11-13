@@ -4,3 +4,6 @@ dist/
 .DS_Store
 Thumbs.db
 .vite/
+
+# film footage (Blender clips pulled from Mux for the showcase render)
+dev/film/
