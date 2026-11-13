@@ -33,7 +33,8 @@ Any `<video>` works in place of `<mux-video>`.
 | Attribute | Values | What it does |
 | --- | --- | --- |
 | `data-theme` | `tangerine` (default), `classic`, `night` | Picks a palette for the shell, keys and LCD tones. |
-| `poster-time` | seconds | The start screen shows this frame in dot-matrix. Playback still starts at 0. |
+| `poster` | image URL | The start screen draws this image in dot-matrix (for Mux: `https://image.mux.com/<id>/thumbnail.webp?time=36`). The media is not touched until Start. |
+| `poster-time` | seconds | Without `poster`, the start screen parks the media on this frame. Playback still starts at 0. |
 | `no-chime` | (boolean) | Turns off the short start chime. The chime only plays from a user gesture, scaled by the player volume, never when muted. |
 
 ### Tokens
@@ -69,24 +70,31 @@ If a frame cannot be read (cross-origin footage without CORS), the panel falls b
 | Part | Does |
 | --- | --- |
 | Power LED | Lit while playing, low when stopped, blinking while buffering, red on error. |
-| D-pad | Left/right seek 5 s, up/down volume one slot. One tab stop; arrows move between arms; hold to repeat. |
+| D-pad | Left/right seek 5 s, up/down volume one slot. One tab stop; arrows move between arms; hold to repeat. A press anywhere in its circle picks the arm by angle. |
 | Seek strip | Cartridge thumb on a segmented groove. Dot-matrix storyboard preview on Mux. |
-| Select · CC | Captions on/off. Lights when on, hidden when the media has no captions. |
+| Select · Menu | A handheld menu window: captions, speed, quality, audio track, picture in picture. Video.js menu parts, so arrow keys, Enter and Escape work, and rows the source can't offer are hidden. Hotkey S. |
 | Start · Full | Fullscreen. |
 | B | Mute. |
 | A | Play, pause, replay. |
 | Speaker grille | Volume slider, six slots lit from the bottom. |
 
-Keyboard: Space/K play, ←/→ 5 s, J/L 10 s, ↑/↓ volume, 0–9 jump to 0–90%, Home/End, M mute, C captions, F fullscreen.
+Keyboard: Space/K play, ←/→ 5 s, J/L 10 s, ↑/↓ volume, 0–9 jump to 0–90%, Home/End, M mute, C captions, S menu, F fullscreen.
 
 ## Accessibility
 
-- 0 axe-core violations in 78 runs: WCAG 2.2 AA and best-practice rules, three themes, three widths, eight states, and the demo page.
+```bash
+npm run test:a11y   # builds, serves, runs axe-core over every theme, width and state
+```
+
+The script writes `public/a11y-report.json` (every run and rule) and `public/a11y-tree.txt` (the player's accessibility tree, as a screen reader is given it), and fails on any violation. Set `VB_CHROME` to use a Chromium already on the machine.
+
+- 0 axe-core violations across 91 runs: WCAG 2.2 A/AA and best-practice rules, three themes, three widths, ten states (boot, start, playing, paused, menu, submenu, tooltip, muted, ended, error), and the page.
 - Labels and timecodes reach at least 6.6:1; key icons at least 5.7:1.
 - Every control is a Video.js component with its own name and shortcut; the status announcer reports changes. The LCD canvas is hidden from assistive tech.
 - `prefers-reduced-motion`: no mosaic transition, no blinking, no boot drop.
 - `forced-colors`: the handheld redraws itself in system colours.
-- Keys are 40 px or more, D-pad arms at least 24 px, seek strip and grille 44 px tall.
+- Keys are 40 px or more; the D-pad reads presses across its whole circle; seek strip, grille and menu rows are 38 to 44 px tall.
+- Tested with automation in Chromium. Screen-reader passes with NVDA and VoiceOver, and runs in Firefox and Safari, are still to do.
 
 ## Develop
 

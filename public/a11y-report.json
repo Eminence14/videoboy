@@ -1,0 +1,1099 @@
+{
+ "tool": "axe-core 4.14.0",
+ "tags": [
+  "wcag2a",
+  "wcag2aa",
+  "wcag21a",
+  "wcag21aa",
+  "wcag22aa",
+  "best-practice"
+ ],
+ "date": "2026-11-13T11:31:43.676Z",
+ "runs": 91,
+ "violations": 0,
+ "results": [
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "boot",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "start",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "playing",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "paused",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "menu",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "submenu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "tooltip",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "muted",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "ended",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "1100",
+   "state": "error",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "boot",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "start",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "playing",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "paused",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "menu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "submenu",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "tooltip",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "muted",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "ended",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "error",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "boot",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "start",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "playing",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "paused",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "menu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "submenu",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "tooltip",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "muted",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "ended",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "error",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "boot",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "start",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "playing",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "paused",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "menu",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "submenu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "tooltip",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "muted",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "ended",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "error",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "boot",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "start",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "playing",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "paused",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "menu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "submenu",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "tooltip",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "muted",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "ended",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "error",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "boot",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "start",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "playing",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "paused",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "menu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "submenu",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "tooltip",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "muted",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "ended",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "error",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "boot",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "start",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "playing",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "paused",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "menu",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "submenu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "tooltip",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "muted",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "ended",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "error",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "boot",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "start",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "playing",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "paused",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "menu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "submenu",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "tooltip",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "muted",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "ended",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "error",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "boot",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "start",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "playing",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "paused",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "menu",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "submenu",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "tooltip",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "muted",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "ended",
+   "passes": 54,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "360",
+   "state": "error",
+   "passes": 55,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "page",
+   "width": "1440",
+   "state": "page",
+   "passes": 53,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast"
+   ],
+   "violations": []
+  }
+ ]
+}

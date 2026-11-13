@@ -1,6 +1,6 @@
 {
   "name": "videoboy-skin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "VIDEOBOY: a handheld-console skin for the Video.js v10 player",
   "license": "Apache-2.0",
@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:a11y": "vite build && node tests/a11y.mjs"
   },
   "dependencies": {
     "@videojs/html": "^10.4.0",
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "axe-core": "^4.14.0",
+    "playwright": "^1.65.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.8"
   }

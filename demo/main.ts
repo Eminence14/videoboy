@@ -18,6 +18,8 @@ function heroMedia() {
     m.setAttribute('playsinline', '');
     m.setAttribute('crossorigin', 'anonymous');
     m.setAttribute('preload', 'auto');
+    // The start screen draws Mux's own thumbnail, so the stream loads from 0:00 only once.
+    skin.setAttribute('poster', `https://image.mux.com/${MUX_ID}/thumbnail.webp?time=36&width=960`);
     m.innerHTML = '<track kind="subtitles" src="/media/tos-en.vtt" srclang="en" label="English" default>';
     return m;
   }

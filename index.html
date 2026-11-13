@@ -10,6 +10,8 @@
   <meta property="og:image" content="/og.png" />
   <meta name="theme-color" content="#F4ECDF" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='1' y='0' width='14' height='16' rx='2' fill='%23EEE0C6'/%3E%3Crect x='3' y='2' width='10' height='7' fill='%2386391A'/%3E%3Crect x='4' y='3' width='8' height='5' fill='%23F9D7A8'/%3E%3Cpath d='M3 12h3M4 11v3' stroke='%232B231E'/%3E%3Crect x='10' y='11' width='2' height='2' fill='%23F26A1B'/%3E%3Crect x='12' y='10' width='2' height='2' fill='%23F26A1B'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://stream.mux.com" crossorigin />
+  <link rel="preconnect" href="https://image.mux.com" crossorigin />
   <script type="module" src="/demo/main.ts"></script>
 </head>
 <body>
@@ -26,6 +28,7 @@
         <li><a href="#sizes">Sizes</a></li>
         <li><a href="#access">Access</a></li>
         <li><a href="#install">Install</a></li>
+        <li><a href="https://github.com/Eminence14/videoboy">GitHub</a></li>
       </ul>
     </nav>
   </header>
@@ -45,6 +48,15 @@
           <videoboy-skin id="skin" poster-time="36"></videoboy-skin>
         </video-player>
       </div>
+
+      <ul class="legend" aria-label="How the controls map">
+        <li><span class="lg lg-dpad" aria-hidden="true"></span><b>D-pad</b> ◀ ▶ seek 5 s · ▲ ▼ volume</li>
+        <li><span class="lg lg-a" aria-hidden="true">A</span><b>A</b> play · pause</li>
+        <li><span class="lg lg-b" aria-hidden="true">B</span><b>B</b> mute</li>
+        <li><span class="lg lg-pill" aria-hidden="true"></span><b>Menu</b> captions · speed · quality · PiP</li>
+        <li><span class="lg lg-pill" aria-hidden="true"></span><b>Full</b> fullscreen</li>
+        <li><span class="lg lg-grille" aria-hidden="true"></span><b>Grille</b> volume</li>
+      </ul>
 
       <div class="hero-meta">
         <fieldset class="chips" aria-describedby="theme-note">
@@ -79,14 +91,14 @@
       <p class="intro">Nothing on the console is decoration. Each part is a Video.js v10 component, and each one shows its state on its face.</p>
       <figure class="anatomy">
         <div class="anatomy-art">
-          <img src="/states/anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 captions key, 5 fullscreen key, 6 B key, 7 A key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
+          <img src="/states/anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 menu key, 5 fullscreen key, 6 B key, 7 A key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
           <ol class="pins" aria-hidden="true" id="pins"></ol>
         </div>
         <ol class="parts">
           <li><b>Power LED</b><span>Lit while it plays, low when stopped, blinking while it buffers, red on error.</span></li>
-          <li><b>D-pad</b><span>Left and right seek 5 seconds. Up and down move the volume one slot. Hold to repeat.</span></li>
+          <li><b>D-pad</b><span>Left and right seek 5 seconds. Up and down move the volume one slot. Hold to repeat. A press anywhere in its circle counts, by angle, like a real pad.</span></li>
           <li><b>Seek strip</b><span>A cartridge rides a segmented groove. Hover for a dot-matrix preview from the Mux storyboard.</span></li>
-          <li><b>Select · CC</b><span>Captions on and off. The key lights when they are on, and hides if the film has none.</span></li>
+          <li><b>Select · Menu</b><span>Opens a handheld menu window: captions, speed, quality, audio track and picture in picture. Arrow keys move the cursor, Enter picks, Escape backs out. Rows the source can’t offer stay hidden.</span></li>
           <li><b>Start · Full</b><span>Fullscreen. The console floats over the film, then steps away to a single line.</span></li>
           <li><b>B</b><span>Mute. Its face shows the speaker or the muted speaker.</span></li>
           <li><b>A</b><span>Play, pause, replay. The face changes with the state.</span></li>
@@ -172,6 +184,7 @@
         <div><dt><kbd>Home</kbd><kbd>End</kbd></dt><dd>Start or end</dd></div>
         <div><dt><kbd>M</kbd></dt><dd>Mute</dd></div>
         <div><dt><kbd>C</kbd></dt><dd>Captions</dd></div>
+        <div><dt><kbd>S</kbd></dt><dd>Menu. Arrows move, Enter picks, Esc backs out.</dd></div>
         <div><dt><kbd>F</kbd></dt><dd>Fullscreen</dd></div>
         <div><dt><kbd>Tab</kbd></dt><dd>Next control. The D-pad is one stop; arrows move between its arms.</dd></div>
       </dl>
@@ -182,22 +195,23 @@
       <p class="num">07 · Accessibility</p>
       <h2 id="access-title">Checked, not assumed.</h2>
       <ul class="checks" id="checks">
-        <li><b id="axe-count">0</b><span>axe-core violations in 78 runs: WCAG 2.2 AA and best-practice rules, three themes, at 1100, 640 and 360 px, in eight states from boot to error, plus this page.</span></li>
+        <li><b id="axe-count">0</b><span>axe-core violations in 91 runs: WCAG 2.2 A/AA and best-practice rules, three themes, at 1100, 640 and 360 px, in ten states from boot through the menu to error, plus this page.</span></li>
         <li><b>3 px</b><span>Focus ring on every control, offset from the key so it reads on any shell colour.</span></li>
         <li><b>Names</b><span>Every key is a Video.js button with its own name and shortcut. The LCD is drawn for the eyes and hidden from screen readers; the status announcer speaks play, pause, seek and volume changes.</span></li>
         <li><b>Captions</b><span>Set in the system sans on dark plates, never in the pixel font, sized to the player.</span></li>
         <li><b>Motion</b><span>With reduced motion, the pause screen appears without the mosaic, nothing blinks, and the logo does not drop.</span></li>
         <li><b>Contrast</b><span id="contrast-note">Labels and timecodes reach at least 6.6:1 on their shell, LCD text at least 6.6:1, in all three themes. Key icons reach at least 5.7:1.</span></li>
         <li><b>Forced colours</b><span>In Windows high contrast the handheld redraws itself in system colours, with outlined keys and a Highlight seek fill.</span></li>
-        <li><b>Targets</b><span>A, B and the system keys are 40 px or more; D-pad arms are at least 24 px; the seek strip and grille are 44 px tall to grab.</span></li>
+        <li><b>Targets</b><span>A, B and the system keys are 40 px or more. The D-pad reads a press anywhere in its 90 px circle, so each arm is a quarter of it. The seek strip, grille and menu rows are 38 to 44 px tall.</span></li>
       </ul>
+      <p class="small evidence">Reproduce it: <code>npm run test:a11y</code> in the <a href="https://github.com/Eminence14/videoboy">repository</a> runs every check above. Raw results: <a href="/a11y-report.json">a11y-report.json</a>. What a screen reader is given: <a href="/a11y-tree.txt">a11y-tree.txt</a>. Tested in Chromium with automation; NVDA and VoiceOver passes are still to come, and other browsers are covered by the tokens and fallbacks rather than by test runs.</p>
     </section>
 
     <!-- ============================================================ install -->
     <section class="sec" id="install" aria-labelledby="install-title">
       <p class="num">08 · Install</p>
       <h2 id="install-title">Two imports and one element.</h2>
-      <p class="intro"><a class="btn" href="/videoboy-skin.zip" download>Download the skin source (zip)</a> Put its <code>src</code> folder in your project, then:</p>
+      <p class="intro"><a class="btn" href="https://github.com/Eminence14/videoboy">Source on GitHub</a><a class="btn btn-ghost" href="/videoboy-skin.zip" download>Download the skin (zip)</a> Put its <code>src</code> folder in your project, then:</p>
       <div class="cols">
         <pre class="code" tabindex="0"><code><span class="c"># Video.js v10 and the Mux media element</span>
 npm i @videojs/html @videojs/mux-video</code></pre>

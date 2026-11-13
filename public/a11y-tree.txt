@@ -1,0 +1,24 @@
+VIDEOBOY accessibility tree (Playwright ariaSnapshot, Chromium), 2026-11-13
+
+# Player, paused
+- group "Media player":
+  - group "D-pad":
+    - button "Volume up"
+    - button "Seek back 5 seconds"
+    - button "Seek forward 5 seconds"
+    - button "Volume down"
+  - time: 0:01
+  - slider "Seek"
+  - time: 0:30
+  - button "Menu"
+  - button "Enter fullscreen"
+  - button "Mute"
+  - button "Play"
+  - slider "Volume"
+  - status
+
+# Menu, open
+- menu "Player menu":
+  - menuitem "Captions English"
+  - menuitem "Speed 1×"
+  - menuitem "Picture in picture"

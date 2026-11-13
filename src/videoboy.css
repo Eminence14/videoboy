@@ -321,7 +321,8 @@ media-container.videoboy {
 .videoboy[data-booted][data-lcd='start'] .vb-start-window,
 .videoboy[data-lcd='end'] .vb-start-window { display: grid; }
 .vb-start-window { font-family: var(--vb-font-lcd); color: var(--vb-lcd-0); background: var(--vb-lcd-3); border: 3px solid var(--vb-lcd-0); box-shadow: inset 0 0 0 2px var(--vb-lcd-3), inset 0 0 0 4px var(--vb-lcd-1), 0 0 0 3px var(--vb-lcd-3), 6px 6px 0 3px rgb(0 0 0 / 0.22); text-transform: uppercase; }
-.vb-start-title { font-size: clamp(8px, 1.6cqw, 16px); letter-spacing: 0.08em; animation: vb-pulse 1.1s steps(1) infinite; }
+.vb-start-title { font-size: clamp(8px, 1.6cqw, 16px); letter-spacing: 0.08em; display: inline-flex; align-items: center; gap: 0.7em; }
+.vb-start-title.vb-when-start::before { content: ''; width: 0; height: 0; border-block: 0.45em solid transparent; border-left: 0.6em solid currentColor; animation: vb-blink 1s steps(1) infinite; }
 .vb-start-hint { font-size: 8px; color: var(--vb-lcd-0); letter-spacing: 0.1em; }
 .videoboy[data-lcd='end'] .vb-start-logo { display: none; }
 .videoboy[data-lcd='end'] .vb-start-title { font-size: clamp(12px, 2.6cqw, 28px); animation: none; }
@@ -460,7 +461,11 @@ media-controls.vb-controls { display: block; grid-area: 2 / 1; position: relativ
   width: var(--vb-dpad);
   height: var(--vb-dpad);
   touch-action: none;
+  /* The whole circle around the cross is live: a press anywhere picks the arm by angle, like a real D-pad. */
+  border-radius: 50%;
+  cursor: pointer;
 }
+.vb-dpad::before { content: ''; position: absolute; inset: calc(var(--vb-dpad-reach, 10px) * -1); border-radius: 50%; }
 .vb-dpad-well {
   position: absolute;
   inset: -7px;
@@ -648,12 +653,89 @@ media-controls.vb-controls { display: block; grid-area: 2 / 1; position: relativ
   transition: translate 0.06s, box-shadow 0.06s;
 }
 .vb-pill:active .vb-pill-cap { translate: 0 2px; box-shadow: 0 0 0 var(--vb-pill-lo), inset 0 1px 2px rgb(0 0 0 / 0.3); }
-.vb-cc[data-active] .vb-pill-cap { background: linear-gradient(180deg, var(--vb-key-hi), var(--vb-accent)); box-shadow: 0 2px 0 var(--vb-key-lo), 0 0 10px color-mix(in srgb, var(--vb-accent) 55%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35); }
-.vb-cc[data-disabled] { opacity: 0.4; cursor: not-allowed; }
-.vb-sys-slot:has(.vb-cc[hidden]) { display: none; }
+media-captions-button.vb-pill[data-active] .vb-pill-cap { background: linear-gradient(180deg, var(--vb-key-hi), var(--vb-accent)); box-shadow: 0 2px 0 var(--vb-key-lo), 0 0 10px color-mix(in srgb, var(--vb-accent) 55%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35); }
 .vb-fs .vb-i-exit, .videoboy .vb-sys .vb-i-exit { display: none; }
 .vb-sys-slot:has(.vb-fs[data-fullscreen]) .vb-i-exit { display: inline; }
 .vb-sys-slot:has(.vb-fs[data-fullscreen]) .vb-i-enter { display: none; }
+
+
+/* ---------------------------------------------------------------- MENU (Select)
+ * A handheld menu window: a list on the LCD, a pointer on the current row,
+ * the current value on the right. Built from Video.js menu parts, so roles,
+ * arrow keys, Enter and Escape all come from the player.
+ */
+.vb-menu {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  color: var(--vb-lcd-0);
+  font-family: var(--vb-font-lcd);
+  z-index: 30;
+}
+.vb-menu:not([data-open]) { display: none; }
+.vb-menu-page {
+  display: grid;
+  gap: 2px;
+  min-width: 232px;
+  max-height: min(60vh, 340px);
+  overflow: auto;
+  padding: 8px;
+  background: var(--vb-lcd-3);
+  border: 3px solid var(--vb-lcd-0);
+  box-shadow: inset 0 0 0 2px var(--vb-lcd-3), inset 0 0 0 4px var(--vb-lcd-1), 6px 6px 0 0 rgb(0 0 0 / 0.25);
+  outline: none;
+  scrollbar-width: thin;
+}
+.vb-menu-page[hidden], .vb-menu-row[hidden], .vb-menu-root[data-child-open] { display: none !important; }
+.vb-menu-row {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 10px 0 8px;
+  border-radius: 2px;
+  font-size: 9px;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--vb-lcd-0);
+  cursor: pointer;
+  outline: none;
+}
+.vb-menu-label { justify-self: start; text-align: left; overflow: hidden; text-overflow: ellipsis; }
+.vb-menu-cursor { width: 0; height: 0; border-block: 5px solid transparent; border-left: 7px solid transparent; }
+.vb-menu-row:is([data-highlighted], :focus-visible) { background: color-mix(in srgb, var(--vb-lcd-2) 30%, var(--vb-lcd-3)); }
+.vb-menu-row:is([data-highlighted], :focus-visible) .vb-menu-cursor { border-left-color: var(--vb-lcd-0); }
+.vb-menu-row:focus-visible { box-shadow: inset 0 0 0 2px var(--vb-lcd-0); }
+.vb-menu-row[aria-disabled='true'] { opacity: 0.45; cursor: default; }
+.vb-menu-hint { display: inline-flex; align-items: center; gap: 8px; color: var(--vb-lcd-0); }
+.vb-menu-value { opacity: 0.85; }
+.vb-menu-value { max-width: 12ch; overflow: hidden; text-overflow: ellipsis; }
+.vb-menu-arrow { width: 0; height: 0; border-block: 4px solid transparent; border-left: 5px solid currentColor; }
+.vb-menu-back { grid-template-columns: 10px auto minmax(0, 1fr); }
+.vb-menu-back-arrow { width: 0; height: 0; border-block: 4px solid transparent; border-right: 5px solid currentColor; }
+.vb-menu-sep { display: block; height: 0; margin: 2px 4px 4px; border-top: 2px dotted var(--vb-lcd-1); }
+.vb-menu-group { display: grid; gap: 2px; }
+.vb-menu-check { display: inline-grid; place-items: center; width: 10px; height: 10px; border: 2px solid var(--vb-lcd-0); }
+.vb-menu-check > span { width: 4px; height: 4px; background: var(--vb-lcd-0); opacity: 0; }
+.vb-menu-radio[aria-checked='true'] .vb-menu-check > span { opacity: 1; }
+.vb-menu-tier { margin-left: 6px; font-size: 7px; color: var(--vb-lcd-0); vertical-align: super; }
+.vb-menu-tier:empty, .vb-menu-badge:empty { display: none; }
+.vb-menu-badge { font-size: 7px; color: var(--vb-lcd-0); }
+.vb-menu-radio[data-availability='unavailable'], .vb-menu-radio[data-availability='unsupported'] { display: none; }
+.vb-menu-pip { grid-template-columns: 10px minmax(0, 1fr); }
+.vb-pip-exit, .videoboy[data-pip] .vb-pip-enter { display: none; }
+.videoboy[data-pip] .vb-pip-exit { display: inline; }
+.vb-menu-btn[aria-expanded='true'] .vb-pill-cap { background: linear-gradient(180deg, var(--vb-key-hi), var(--vb-accent)); box-shadow: 0 2px 0 var(--vb-key-lo), 0 0 10px color-mix(in srgb, var(--vb-accent) 55%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35); }
+@media (forced-colors: active) {
+  .vb-menu-page { border: 2px solid CanvasText; background: Canvas; }
+  .vb-menu-row { color: CanvasText; }
+  .vb-menu-row:is([data-highlighted], :focus-visible) { forced-color-adjust: none; background: Highlight; color: HighlightText; }
+}
 
 /* ---------------------------------------------------------------- A and B */
 .vb-ab {
@@ -882,7 +964,7 @@ media-container.videoboy:fullscreen:has(.vb-controls:not([data-visible])) { curs
 @keyframes vb-drop { from { translate: 0 calc(-50cqh - 1em); } to { translate: 0 0; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .vb-boot-logo, .vb-start-title, .vb-loading-dots i, .videoboy[data-waiting] .vb-led { animation: none !important; }
+  .vb-boot-logo, .vb-start-title, .vb-start-title::before, .vb-loading-dots i, .videoboy[data-waiting] .vb-led { animation: none !important; }
   .vb-boot { transition: none; }
   .vb-deck, .vb-line, .vb-captions, .vb-cart, .vb-key-face, .vb-pill-cap { transition: none !important; }
 }

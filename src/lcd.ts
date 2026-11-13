@@ -17,13 +17,14 @@
  */
 
 type Mode = 'boot' | 'start' | 'play' | 'pause' | 'end' | 'error';
-type RGB = [number, number, number];
+export type RGB = [number, number, number];
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
 const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
-function parseColor(value: string, fallback: RGB): RGB {
+/** One parser for every colour the skin reads: canvas dots and the SVG fallback use the same values. */
+export function parseColor(value: string, fallback: RGB): RGB {
   const v = value.trim();
   const hex = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(v);
   if (hex) {
@@ -33,10 +34,31 @@ function parseColor(value: string, fallback: RGB): RGB {
   }
   const rgb = /rgba?\(([^)]+)\)/.exec(v);
   if (rgb) {
-    const p = rgb[1].split(/[ ,/]+/).map(Number);
-    if (p.length >= 3 && p.every((n) => !Number.isNaN(n))) return [p[0], p[1], p[2]];
+    const p = rgb[1].split(/[ ,/]+/).filter(Boolean).slice(0, 3).map((n) => (n.endsWith('%') ? (parseFloat(n) * 255) / 100 : Number(n)));
+    if (p.length === 3 && p.every((n) => !Number.isNaN(n))) return [p[0], p[1], p[2]];
+  }
+  // Anything else CSS accepts (named colours, hsl(), oklch(), color-mix()): let the browser resolve it.
+  if (v) {
+    const c = colorCtx();
+    if (c) {
+      c.fillStyle = '#000';
+      c.fillStyle = v;
+      c.fillRect(0, 0, 1, 1);
+      const d = c.getImageData(0, 0, 1, 1).data;
+      if (c.fillStyle !== '#000000' || v.replace(/\s/g, '').toLowerCase() === 'black') return [d[0], d[1], d[2]];
+    }
   }
   return fallback;
+}
+
+let _colorCtx: CanvasRenderingContext2D | null | undefined;
+function colorCtx() {
+  if (_colorCtx === undefined) {
+    const c = document.createElement('canvas');
+    c.width = c.height = 1;
+    _colorCtx = c.getContext('2d', { willReadFrequently: true });
+  }
+  return _colorCtx;
 }
 
 /** The playable <video> behind a media host: itself, or the one inside a custom media element. */
@@ -69,7 +91,13 @@ export class LcdElement extends HTMLElement {
   #bootTimer = 0;
   #posterPending = false;
   #ro = new ResizeObserver(() => this.#redraw());
-  #mo = new MutationObserver(() => this.#redraw());
+  #mo = new MutationObserver(() => {
+    this.#loadPoster();
+    this.#redraw();
+  });
+  #childMo: MutationObserver | null = null;
+  #poster: HTMLImageElement | null = null;
+  #posterUrl = '';
   #abort: AbortController | null = null;
 
   connectedCallback() {
@@ -79,17 +107,22 @@ export class LcdElement extends HTMLElement {
     if (!this.#canvas.isConnected) this.prepend(this.#canvas);
     this.#ro.observe(this);
     const skin = this.closest('videoboy-skin');
-    if (skin) this.#mo.observe(skin, { attributes: true, attributeFilter: ['data-theme', 'style'] });
+    if (skin) this.#mo.observe(skin, { attributes: true, attributeFilter: ['data-theme', 'style', 'poster'] });
     this.#setMode('boot');
     // The boot logo drops for ~1.6 s; reduced motion skips straight to the start screen.
     this.#bootTimer = window.setTimeout(() => this.#host?.setAttribute('data-booted', ''), reduceMotion() ? 0 : 1700);
     this.#findMedia();
+    this.#loadPoster();
   }
 
   disconnectedCallback() {
     this.#ro.disconnect();
     this.#mo.disconnect();
+    this.#childMo?.disconnect();
+    this.#childMo = null;
     this.#abort?.abort();
+    this.#abort = null;
+    this.#video = null;
     cancelAnimationFrame(this.#anim);
     clearInterval(this.#noise);
     clearInterval(this.#poll);
@@ -114,7 +147,9 @@ export class LcdElement extends HTMLElement {
     }
     // A source swap replaces the media element: watch the container for that.
     if (this.#host) {
-      new MutationObserver(() => tryFind()).observe(this.#host, { childList: true });
+      this.#childMo?.disconnect();
+      this.#childMo = new MutationObserver(() => tryFind());
+      this.#childMo.observe(this.#host, { childList: true });
     }
   }
 
@@ -134,7 +169,7 @@ export class LcdElement extends HTMLElement {
         this.#host?.style.setProperty('--vb-aspect', `${video.videoWidth} / ${video.videoHeight}`);
       }
       const t = this.#posterTime();
-      if (!this.#started && t != null && video.duration > t) {
+      if (!this.#started && !this.#posterSrc() && t != null && video.duration > t) {
         this.#posterPending = true;
         try {
           video.currentTime = t;
@@ -193,6 +228,26 @@ export class LcdElement extends HTMLElement {
     }
   }
 
+  /** A poster image URL on <videoboy-skin poster="…">: the start screen draws it, and the media is left at 0. */
+  #posterSrc(): string {
+    return this.closest('videoboy-skin')?.getAttribute('poster')?.trim() ?? '';
+  }
+
+  #loadPoster() {
+    const url = this.#posterSrc();
+    if (!url || url === this.#posterUrl) return;
+    this.#posterUrl = url;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.decoding = 'async';
+    img.onload = () => {
+      this.#poster = img;
+      if (!this.#started) this.#capture();
+      if (!this.#started) this.#redraw();
+    };
+    img.src = url;
+  }
+
   #posterTime(): number | null {
     const skin = this.closest('videoboy-skin');
     const v = skin?.getAttribute('poster-time');
@@ -228,13 +283,17 @@ export class LcdElement extends HTMLElement {
 
   #capture(): boolean {
     const v = this.#video;
-    if (!v || v.readyState < 2 || !v.videoWidth) return false;
+    const usePoster = !this.#started && this.#poster;
+    const source: CanvasImageSource | null = usePoster ? this.#poster : v;
+    const sw = usePoster ? this.#poster!.naturalWidth : v?.videoWidth ?? 0;
+    const sh = usePoster ? this.#poster!.naturalHeight : v?.videoHeight ?? 0;
+    if (!source || !sw || !sh || (!usePoster && v!.readyState < 2)) return false;
     const w = 320;
-    const h = Math.max(1, Math.round((w * v.videoHeight) / v.videoWidth));
+    const h = Math.max(1, Math.round((w * sh) / sw));
     this.#src.width = w;
     this.#src.height = h;
     try {
-      this.#srcCtx.drawImage(v, 0, 0, w, h);
+      this.#srcCtx.drawImage(source, 0, 0, w, h);
       this.#srcCtx.getImageData(0, 0, 1, 1); // throws when the frame is cross-origin
       this.#tainted = false;
       this.#hasFrame = true;

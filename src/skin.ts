@@ -23,6 +23,16 @@ import '@videojs/html/ui/controls-content';
 import '@videojs/html/ui/play-button';
 import '@videojs/html/ui/mute-button';
 import '@videojs/html/ui/captions-button';
+import '@videojs/html/ui/menu';
+import '@videojs/html/ui/menu-content';
+import '@videojs/html/ui/menu-item';
+import '@videojs/html/ui/menu-item-indicator';
+import '@videojs/html/ui/menu-radio-item';
+import '@videojs/html/ui/menu-separator';
+import '@videojs/html/ui/captions-radio-group';
+import '@videojs/html/ui/playback-rate-radio-group';
+import '@videojs/html/ui/quality-radio-group';
+import '@videojs/html/ui/audio-track-radio-group';
 import '@videojs/html/ui/fullscreen-button';
 import '@videojs/html/ui/time';
 import '@videojs/html/ui/time-slider';
@@ -50,6 +60,7 @@ import '@videojs/html/ui/dialog-close';
 import './parts';
 import './lcd';
 import { icon } from './icons';
+import { parseColor } from './lcd';
 
 let uid = 0;
 const T = (token: string, text: string) => `<media-text token="videoboy.${token}">${text}</media-text>`;
@@ -59,8 +70,37 @@ function key(icons: string) {
   return `<span class="vb-key-face" aria-hidden="true"><span class="vb-key-icons">${icons}</span></span>`;
 }
 
+/** One row of the root menu that opens a page of choices, with the page itself. */
+function menuPage(id: string, key: string, label: string, group: string) {
+  const page = `${id}-m-${key}`;
+  return `
+        <media-menu-item commandfor="${page}" class="vb-menu-row vb-menu-${key}">
+          <span class="vb-menu-cursor" aria-hidden="true"></span>
+          <span class="vb-menu-label"><media-text token="menu.${key}">${label}</media-text></span>
+          <span class="vb-menu-hint"><span data-part="value" class="vb-menu-value"></span><span class="vb-menu-arrow" aria-hidden="true"></span></span>
+        </media-menu-item>
+        <media-menu-content class="vb-menu-page" id="${page}" aria-label="${label}">
+          <media-menu-item class="vb-menu-row vb-menu-back">
+            <span class="vb-menu-cursor" aria-hidden="true"></span>
+            <span class="vb-menu-back-arrow" aria-hidden="true"></span>
+            <span class="vb-menu-label"><media-text token="menu.${key}">${label}</media-text></span>
+          </media-menu-item>
+          <media-menu-separator class="vb-menu-sep"></media-menu-separator>
+          <${group} class="vb-menu-group">
+            <template>
+              <media-menu-radio-item class="vb-menu-row vb-menu-radio">
+                <span class="vb-menu-cursor" aria-hidden="true"></span>
+                <span class="vb-menu-label"><span data-part="label"></span><sup data-part="tier" class="vb-menu-tier"></sup></span>
+                <span data-part="badge" class="vb-menu-badge"></span>
+                <media-menu-item-indicator force-mount class="vb-menu-check"><span aria-hidden="true"></span></media-menu-item-indicator>
+              </media-menu-radio-item>
+            </template>
+          </${group}>
+        </media-menu-content>`;
+}
+
 function template(id: string) {
-  const a = `${id}-a`, b = `${id}-b`, cc = `${id}-cc`, fs = `${id}-fs`, vol = `${id}-vol`;
+  const a = `${id}-a`, b = `${id}-b`, mb = `${id}-menu-btn`, menu = `${id}-menu`, fs = `${id}-fs`, vol = `${id}-vol`;
   return `
   <div class="vb-shell" aria-hidden="true"></div>
   <div class="vb-bezel" aria-hidden="true">
@@ -116,10 +156,22 @@ function template(id: string) {
 
         <div class="vb-sys">
           <span class="vb-sys-slot">
-            <media-captions-button class="vb-pill vb-cc" id="${cc}"><span class="vb-pill-cap" aria-hidden="true"></span></media-captions-button>
-            <span class="vb-label" aria-hidden="true">${T('cc', 'CC')}</span>
+            <button type="button" class="vb-pill vb-menu-btn" id="${mb}" commandfor="${menu}" aria-label="Menu" aria-keyshortcuts="s"><span class="vb-pill-cap" aria-hidden="true"></span></button>
+            <span class="vb-label" aria-hidden="true">${T('menu', 'Menu')}</span>
           </span>
-          <media-tooltip trigger="${cc}" side="top" class="vb-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="vb-tip-key"></media-tooltip-shortcut></media-tooltip>
+          <media-tooltip trigger="${mb}" side="top" class="vb-tip"><media-text token="videoboy.menuTip">Menu</media-text><span class="vb-tip-key">S</span></media-tooltip>
+          <media-menu id="${menu}" side="top" align="center" class="vb-menu">
+            <media-menu-content class="vb-menu-page vb-menu-root" aria-label="Player menu">
+              ${menuPage(id, 'captions', 'Captions', 'media-captions-radio-group')}
+              ${menuPage(id, 'speed', 'Speed', 'media-playback-rate-radio-group')}
+              ${menuPage(id, 'quality', 'Quality', 'media-quality-radio-group')}
+              ${menuPage(id, 'audio', 'Audio', 'media-audio-track-radio-group')}
+              <media-menu-item class="vb-menu-row vb-menu-pip" data-vb-pip>
+                <span class="vb-menu-cursor" aria-hidden="true"></span>
+                <span class="vb-menu-label"><span class="vb-pip-enter">${T('pip', 'Picture in picture')}</span><span class="vb-pip-exit">${T('pipExit', 'Exit picture in picture')}</span></span>
+              </media-menu-item>
+            </media-menu-content>
+          </media-menu>
           <span class="vb-sys-slot">
             <media-fullscreen-button class="vb-pill vb-fs" id="${fs}"><span class="vb-pill-cap" aria-hidden="true"></span></media-fullscreen-button>
             <span class="vb-label" aria-hidden="true"><span class="vb-i-enter">${T('full', 'Full')}</span><span class="vb-i-exit">${T('exit', 'Exit')}</span></span>
@@ -217,21 +269,28 @@ function chime(volume: number) {
 /** Mirror the theme's four LCD tones into the SVG fallback filter, for cross-origin frames. */
 function syncFilter(container: HTMLElement) {
   const cs = getComputedStyle(container);
-  const tones = [0, 1, 2, 3].map((i) => cs.getPropertyValue(`--vb-lcd-${i}`).trim());
-  const rgb = tones.map((t) => {
-    const m = /^#?([0-9a-f]{6})$/i.exec(t.replace('#', '').length === 6 ? t.replace('#', '') : '');
-    const h = m ? m[1] : '000000';
-    return [0, 2, 4].map((o) => (parseInt(h.slice(o, o + 2), 16) / 255).toFixed(3));
-  });
-  const fn = container.querySelectorAll('.vb-lcdf-map > *');
-  fn.forEach((f, ch) => f.setAttribute('tableValues', rgb.map((c) => c[ch]).join(' ')));
+  const rgb = [0, 1, 2, 3].map((i) => parseColor(cs.getPropertyValue(`--vb-lcd-${i}`), [0, 0, 0]).map((c) => (c / 255).toFixed(3)));
+  container.querySelectorAll('.vb-lcdf-map > *').forEach((f, ch) => f.setAttribute('tableValues', rgb.map((c) => c[ch]).join(' ')));
 }
 
 class VideoboySkinElement extends HTMLElement {
   #rendered = false;
   #chimed = false;
+  #observers: MutationObserver[] = [];
+  #observe: (() => void) | null = null;
+  #cleanup: (() => void) | null = null;
+
+  disconnectedCallback() {
+    for (const o of this.#observers) o.disconnect();
+    this.#observers = [];
+    this.#cleanup?.();
+  }
+
   connectedCallback() {
-    if (this.#rendered) return;
+    if (this.#rendered) {
+      this.#observe?.();
+      return;
+    }
     this.#rendered = true;
     const id = `vb${(++uid).toString(36)}${Math.random().toString(36).slice(2, 6)}`;
     const container = document.createElement('media-container');
@@ -243,23 +302,75 @@ class VideoboySkinElement extends HTMLElement {
     container.prepend(...media);
     this.append(container);
     requestAnimationFrame(() => syncFilter(container));
-    // Media added later (by script, or a source swap) belongs inside the container too.
-    new MutationObserver((records) => {
-      for (const r of records) for (const n of r.addedNodes) if (n !== container && n instanceof Element) container.prepend(n);
-    }).observe(this, { childList: true });
-    new MutationObserver(() => syncFilter(container)).observe(this, { attributes: true, attributeFilter: ['data-theme', 'style'] });
+    // Observers are kept so a skin moved or removed from the page stops watching; they resume on reconnect.
+    this.#observe = () => {
+      const themes = new MutationObserver(() => syncFilter(container));
+      themes.observe(this, { attributes: true, attributeFilter: ['data-theme', 'style'] });
+      // Media added later (by script, or a source swap) belongs inside the container too.
+      const media = new MutationObserver((records) => {
+        for (const r of records) for (const n of r.addedNodes) if (n !== container && n instanceof Element) container.prepend(n);
+      });
+      media.observe(this, { childList: true });
+      const lcd = new MutationObserver(() => {
+        const end = container.getAttribute('data-lcd') === 'end';
+        start.setAttribute('aria-label', end ? 'The end. Play again' : 'Press start: play video');
+      });
+      lcd.observe(container, { attributes: true, attributeFilter: ['data-lcd'] });
+      this.#observers = [themes, media, lcd];
+    };
 
     // The start and end screens are one big button. Its name says what the screen says.
     const start = container.querySelector<HTMLButtonElement>('.vb-start')!;
-    new MutationObserver(() => {
-      const end = container.getAttribute('data-lcd') === 'end';
-      start.setAttribute('aria-label', end ? 'The end. Play again' : 'Press start: play video');
-    }).observe(container, { attributes: true, attributeFilter: ['data-lcd'] });
+    this.#observe!();
     start.addEventListener('click', () => {
       const m = container.querySelector(':scope > video, :scope > [playback-id], :scope > [src]') as HTMLMediaElement | null;
       const p = m?.play?.();
       if (p && typeof p.catch === 'function') p.catch(() => {});
     });
+
+    // S opens the menu, like Select on the handheld. Ignored while typing or with modifiers.
+    const menuBtn = container.querySelector<HTMLButtonElement>('.vb-menu-btn')!;
+    container.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() !== 's' || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+      const t = e.target as HTMLElement;
+      if (t.closest('input, textarea, [contenteditable], media-menu')) return;
+      e.preventDefault();
+      menuBtn.click();
+    });
+
+    // Picture in picture, as a menu row. Hidden where the browser or the media can't do it.
+    const pip = container.querySelector<HTMLElement>('[data-vb-pip]')!;
+    const mediaEl = () => {
+      const m = container.querySelector(':scope > video, :scope > [playback-id], :scope > [src]');
+      return (m instanceof HTMLVideoElement ? m : (m as any)?.target) as HTMLVideoElement | undefined;
+    };
+    const syncPip = () => {
+      const v = mediaEl();
+      const ok = !!(document.pictureInPictureEnabled && v && !v.disablePictureInPicture);
+      pip.toggleAttribute('hidden', !ok);
+      container.toggleAttribute('data-pip', !!document.pictureInPictureElement);
+    };
+    pip.addEventListener('click', async () => {
+      const v = mediaEl();
+      try {
+        if (document.pictureInPictureElement) await document.exitPictureInPicture();
+        else if (v) await v.requestPictureInPicture();
+      } catch {}
+      syncPip();
+    });
+    document.addEventListener('enterpictureinpicture', syncPip, true);
+    document.addEventListener('leavepictureinpicture', syncPip, true);
+    this.#cleanup = () => {
+      document.removeEventListener('enterpictureinpicture', syncPip, true);
+      document.removeEventListener('leavepictureinpicture', syncPip, true);
+    };
+    const observeOnly = this.#observe!;
+    this.#observe = () => {
+      observeOnly();
+      document.addEventListener('enterpictureinpicture', syncPip, true);
+      document.addEventListener('leavepictureinpicture', syncPip, true);
+    };
+    window.setTimeout(syncPip, 0);
 
     container.addEventListener('vb-start', () => {
       if (this.#chimed || this.hasAttribute('no-chime')) return;

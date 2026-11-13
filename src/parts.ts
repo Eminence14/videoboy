@@ -39,6 +39,7 @@ class DpadElement extends UIElement {
   readonly #volume = new PlayerController(this, playerContext, selectVolume);
   #abort: AbortController | null = null;
   #repeat: ReturnType<typeof setTimeout> | null = null;
+  #flashTimer: ReturnType<typeof setTimeout> | null = null;
   #current: Dir = 'right';
 
   override connectedCallback() {
@@ -58,6 +59,8 @@ class DpadElement extends UIElement {
     this.#abort?.abort();
     this.#abort = null;
     this.#stop();
+    if (this.#flashTimer) clearTimeout(this.#flashTimer);
+    this.#flashTimer = null;
   }
   #render() {
     this.setAttribute('role', 'group');
@@ -87,10 +90,19 @@ class DpadElement extends UIElement {
   }
   #flash(dir: Dir) {
     this.setAttribute('data-pressed', dir);
-    clearTimeout((this as any)._flash);
-    (this as any)._flash = setTimeout(() => {
+    if (this.#flashTimer) clearTimeout(this.#flashTimer);
+    this.#flashTimer = setTimeout(() => {
+      this.#flashTimer = null;
       if (!this.#repeat) this.removeAttribute('data-pressed');
     }, 140);
+  }
+  /** Which arm a pointer press means: the 90° wedge it falls in, measured from the centre. */
+  #dirAt(e: PointerEvent): Dir | null {
+    const r = this.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2);
+    const dy = e.clientY - (r.top + r.height / 2);
+    if (Math.hypot(dx, dy) < r.width * 0.09) return null; // the centre dimple does nothing
+    return Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : dy > 0 ? 'down' : 'up';
   }
   #focusArm(dir: Dir) {
     this.#current = dir;
@@ -114,12 +126,13 @@ class DpadElement extends UIElement {
     }
   };
   #onPointerDown = (e: PointerEvent) => {
-    const btn = (e.target as HTMLElement).closest<HTMLElement>('.vb-arm');
-    if (!btn || e.button !== 0) return;
+    if (e.button !== 0) return;
+    const dir = this.#dirAt(e);
+    if (!dir) return;
     e.preventDefault();
-    const dir = btn.dataset.dir as Dir;
+    this.setPointerCapture?.(e.pointerId);
     this.#current = dir;
-    this.querySelectorAll<HTMLButtonElement>('.vb-arm').forEach((b) => (b.tabIndex = b === btn ? 0 : -1));
+    this.querySelectorAll<HTMLButtonElement>('.vb-arm').forEach((b) => (b.tabIndex = b.dataset.dir === dir ? 0 : -1));
     this.#run(dir);
     this.setAttribute('data-pressed', dir);
     const loop = (delay: number) => {
@@ -189,6 +202,12 @@ class OsdElement extends UIElement {
   readonly #volume = new PlayerController(this, playerContext, selectVolume);
   #prev: string | null = null;
   #timer: ReturnType<typeof setTimeout> | null = null;
+
+  override disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this.#timer) clearTimeout(this.#timer);
+    this.#timer = null;
+  }
 
   protected override update(changed: PropertyValues) {
     super.update(changed);
