@@ -7,7 +7,7 @@ VIDEOBOY accessibility tree (Playwright ariaSnapshot, Chromium), 2026-11-13
     - button "Seek back 5 seconds"
     - button "Seek forward 5 seconds"
     - button "Volume down"
-  - time: 0:00
+  - time: 0:01
   - slider "Seek"
   - time: 0:30
   - button "Menu"

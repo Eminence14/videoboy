@@ -349,3 +349,34 @@ p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-
 .steps > li::before { content: counter(step); position: absolute; left: 0; top: -2px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 11px var(--pixel); }
 .steps .code { margin: 12px 0 0; }
 .code code { padding: 0; border-radius: 0; background: none; font-size: inherit; color: inherit; }
+
+/* ---------------------------------------------------------------- cartridge shelf under the hero player */
+.carts { max-width: 1100px; margin: 26px auto 0; padding: 0; border: 0; }
+.carts legend { margin-bottom: 12px; padding: 0; font-family: var(--label); font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); }
+.cart-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 720px) { .cart-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
+.cart { position: relative; display: grid; gap: 4px; cursor: pointer; }
+.cart input { position: absolute; inset: 0; z-index: 2; margin: 0; opacity: 0; cursor: pointer; }
+/* The cartridge: a ridged top, a recessed label with the film's frame, an LED that lights when it is slotted in. */
+.cart-body {
+  position: relative; display: block; padding: 10px 10px 12px;
+  border-radius: 8px 8px 14px 8px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--paper-2) 70%, var(--ink) 6%), var(--paper-2));
+  box-shadow: inset 0 1px 0 var(--hi), inset 0 0 0 1px var(--rule), 0 10px 18px -14px rgb(var(--shadow) / 0.7);
+  transition: transform 0.22s cubic-bezier(.2,.8,.2,1), box-shadow 0.22s ease;
+}
+.cart-ridge { display: block; height: 8px; margin: 0 18% 8px; border-radius: 2px; background: repeating-linear-gradient(90deg, var(--rule) 0 2px, transparent 2px 5px); }
+.cart-label { display: block; overflow: hidden; border-radius: 4px; aspect-ratio: 16 / 9; background: var(--code); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--ink) 18%, transparent); }
+.cart-label img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8); transition: filter 0.22s ease; }
+.cart-led { position: absolute; top: 9px; right: 10px; width: 7px; height: 7px; border-radius: 50%; background: color-mix(in srgb, var(--ink) 25%, transparent); }
+.cart-name { margin-top: 8px; font-weight: 600; font-size: 15px; line-height: 1.25; color: var(--ink); }
+.cart-tag { font-family: var(--label); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+.cart:hover .cart-body { transform: translateY(-3px); }
+.cart input:checked + .cart-body { transform: translateY(-6px); box-shadow: inset 0 1px 0 var(--hi), inset 0 0 0 2px var(--tan), 0 16px 24px -16px rgb(var(--shadow) / 0.8); }
+.cart input:checked + .cart-body img { filter: none; }
+.cart input:checked + .cart-body .cart-led { background: var(--tan); box-shadow: 0 0 8px var(--tan); }
+.cart input:checked ~ .cart-name { color: var(--tan-ink); }
+.cart input:focus-visible + .cart-body { outline: 3px solid var(--ink); outline-offset: 4px; }
+.cart-now { margin: 14px 0 0; font-size: 14px; color: var(--ink-2); }
+@media (prefers-reduced-motion: reduce) { .cart-body, .cart-label img { transition: none; } .cart:hover .cart-body, .cart input:checked + .cart-body { transform: none; } }
+:root[data-reduce-motion] .cart-body { transition: none; }

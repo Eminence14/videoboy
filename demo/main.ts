@@ -5,24 +5,40 @@ import './page.css';
 
 /** Set VITE_MUX_PLAYBACK_ID to stream from Mux; ?local (or no ID) plays the bundled clip instead. */
 const MUX_ID = (import.meta.env.VITE_MUX_PLAYBACK_ID as string | undefined)?.trim();
-/** The two-minute cut: Tears of Steel 4:50 to 6:50, clipped by Mux from the same asset and playback ID. */
-const CLIP = { start: 290, end: 410, poster: 300 };
 const params = new URLSearchParams(location.search);
 const local = params.has('local') || !MUX_ID;
 
+/* ---------------------------------------------------------------- cartridges: four films on Mux, each clipped to its best stretch */
+type Cart = { id: string; title: string; tag: string; playback: string; start: number; end: number; poster: number; captions?: string };
+const CARTS: Cart[] = [
+  { id: 'tos', title: 'Tears of Steel', tag: 'Sci-fi', playback: MUX_ID ?? '', start: 290, end: 410, poster: 300, captions: '/media/tos-clip-en.vtt' },
+  { id: 'bbb', title: 'Big Buck Bunny', tag: 'Bright', playback: '6AOeSixjz2BTlQyEQKBa7QMb02h6X1EGCoRGqg2b64EM', start: 60, end: 135, poster: 70 },
+  { id: 'sintel', title: 'Sintel', tag: 'Dark', playback: 'ewzLhmFBkBzY1txPi3X2rj6CnXaxasOY9yl009THXt8c', start: 530, end: 610, poster: 604 },
+  { id: 'cosmos', title: 'Cosmos Laundromat', tag: 'Vivid', playback: 'nyNViKIpM9LM02w2u01MYlBD02q01OBz3GO8Sc5BY02ww01Yc', start: 480, end: 555, poster: 520 },
+];
+const thumb = (c: Cart, w: number) => `https://image.mux.com/${c.playback}/thumbnail.webp?time=${c.poster}&width=${w}`;
+const stream = (c: Cart) => `https://stream.mux.com/${c.playback}.m3u8?asset_start_time=${c.start}&asset_end_time=${c.end}`;
+
 /* ---------------------------------------------------------------- hero player */
 const skin = document.getElementById('skin')!;
+let mux: HTMLElement | null = null;
+function loadCart(c: Cart) {
+  if (!mux) return;
+  // The start screen draws Mux's own thumbnail, so each stream loads from its clip start only once.
+  skin.setAttribute('poster', thumb(c, 960));
+  mux.querySelectorAll('track:not([data-storyboard])').forEach((t) => t.remove());
+  if (c.captions) mux.insertAdjacentHTML('beforeend', `<track kind="subtitles" src="${c.captions}" srclang="en" label="English" default>`);
+  mux.setAttribute('src', stream(c));
+}
 function heroMedia() {
   if (!local && MUX_ID) {
     const m = document.createElement('mux-video');
     // <mux-video> reads a Mux stream URL; the playback ID is taken from it.
-    m.setAttribute('src', `https://stream.mux.com/${MUX_ID}.m3u8?asset_start_time=${CLIP.start}&asset_end_time=${CLIP.end}`);
     m.setAttribute('playsinline', '');
     m.setAttribute('crossorigin', 'anonymous');
     m.setAttribute('preload', 'auto');
-    // The start screen draws Mux's own thumbnail, so the stream loads from 0:00 only once.
-    skin.setAttribute('poster', `https://image.mux.com/${MUX_ID}/thumbnail.webp?time=${CLIP.poster}&width=960`);
-    m.innerHTML = '<track kind="subtitles" src="/media/tos-clip-en.vtt" srclang="en" label="English" default>';
+    mux = m;
+    loadCart(CARTS[0]);
     return m;
   }
   skin.setAttribute('poster-time', '12');
@@ -35,6 +51,33 @@ function heroMedia() {
   return v;
 }
 skin.prepend(heroMedia());
+
+// The shelf: slot a cartridge in and it plays. Native radios, so arrow keys and screen readers work as usual.
+const shelf = document.getElementById('carts');
+if (shelf && mux) {
+  shelf.querySelector('.cart-list')!.innerHTML = CARTS.map(
+    (c, i) => `<label class="cart" style="--i:${i}"><input type="radio" name="cart" value="${c.id}"${i === 0 ? ' checked' : ''} /><span class="cart-body" aria-hidden="true"><span class="cart-ridge"></span><span class="cart-label"><img src="${thumb(c, 320)}" alt="" width="160" height="90" loading="lazy" decoding="async" /></span><span class="cart-led"></span></span><span class="cart-name">${c.title}</span><span class="cart-tag">${c.tag} · ${Math.floor((c.end - c.start) / 60)}:${String((c.end - c.start) % 60).padStart(2, '0')}</span></label>`
+  ).join('');
+  shelf.addEventListener('change', (e) => {
+    const input = e.target as HTMLInputElement;
+    if (input.name !== 'cart') return;
+    const c = CARTS.find((x) => x.id === input.value);
+    if (!c) return;
+    const now = document.getElementById('cart-now');
+    if (now) now.textContent = `Now playing: ${c.title}`;
+    const media = mux as unknown as HTMLMediaElement;
+    const play = () => {
+      const p = media.play?.();
+      if (p && typeof p.catch === 'function') p.catch(() => {});
+    };
+    // A new stream attaches asynchronously: play once it has metadata, still inside the click's activation.
+    media.addEventListener('loadedmetadata', play, { once: true });
+    loadCart(c);
+    play();
+  });
+} else if (shelf) {
+  shelf.hidden = true;
+}
 
 /* ---------------------------------------------------------------- theme: the hero player and the whole page change together */
 type Theme = 'tangerine' | 'classic' | 'night';
