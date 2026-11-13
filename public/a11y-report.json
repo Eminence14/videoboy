@@ -8,7 +8,7 @@
   "wcag22aa",
   "best-practice"
  ],
- "date": "2026-11-13T16:07:46.675Z",
+ "date": "2026-11-13T18:02:48.242Z",
  "runs": 96,
  "violations": 0,
  "results": [
@@ -16,10 +16,11 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "boot",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -27,11 +28,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "start",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -39,11 +41,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "playing",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -51,11 +54,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "paused",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -63,11 +67,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "menu",
-   "passes": 55,
+   "passes": 58,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -75,11 +80,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "submenu",
-   "passes": 56,
+   "passes": 59,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -87,11 +93,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "tooltip",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -99,11 +106,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "muted",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -111,11 +119,12 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "ended",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -123,82 +132,89 @@
    "theme": "tangerine",
    "width": "1100",
    "state": "error",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "640",
-   "state": "boot",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "640",
-   "state": "start",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "640",
-   "state": "playing",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "640",
-   "state": "paused",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "640",
-   "state": "menu",
-   "passes": 56,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "640",
-   "state": "submenu",
    "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "boot",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "start",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "playing",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "640",
+   "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -206,11 +222,12 @@
    "theme": "tangerine",
    "width": "640",
    "state": "tooltip",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -218,11 +235,12 @@
    "theme": "tangerine",
    "width": "640",
    "state": "muted",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -230,11 +248,12 @@
    "theme": "tangerine",
    "width": "640",
    "state": "ended",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -242,82 +261,89 @@
    "theme": "tangerine",
    "width": "640",
    "state": "error",
-   "passes": 55,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "360",
-   "state": "boot",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "360",
-   "state": "start",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "360",
-   "state": "playing",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "360",
-   "state": "paused",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "360",
-   "state": "menu",
-   "passes": 56,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "tangerine",
-   "width": "360",
-   "state": "submenu",
    "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "boot",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "start",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "playing",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "tangerine",
+   "width": "360",
+   "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -325,11 +351,12 @@
    "theme": "tangerine",
    "width": "360",
    "state": "tooltip",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -337,11 +364,12 @@
    "theme": "tangerine",
    "width": "360",
    "state": "muted",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -349,11 +377,12 @@
    "theme": "tangerine",
    "width": "360",
    "state": "ended",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -361,558 +390,605 @@
    "theme": "tangerine",
    "width": "360",
    "state": "error",
-   "passes": 55,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "boot",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "start",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "playing",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "paused",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "menu",
-   "passes": 55,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "submenu",
-   "passes": 56,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "tooltip",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "muted",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "ended",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "1100",
-   "state": "error",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "boot",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "start",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "playing",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "paused",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "menu",
-   "passes": 56,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "submenu",
    "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
    "theme": "classic",
-   "width": "640",
-   "state": "tooltip",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "muted",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "ended",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "640",
-   "state": "error",
-   "passes": 55,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
+   "width": "1100",
    "state": "boot",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
    "theme": "classic",
-   "width": "360",
+   "width": "1100",
    "state": "start",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
-   "state": "playing",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
-   "state": "paused",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
-   "state": "menu",
    "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
    "theme": "classic",
-   "width": "360",
+   "width": "1100",
+   "state": "playing",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
    "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "tooltip",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "muted",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "ended",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "1100",
+   "state": "error",
    "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
    "theme": "classic",
-   "width": "360",
-   "state": "tooltip",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
-   "state": "muted",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
-   "state": "ended",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "classic",
-   "width": "360",
-   "state": "error",
-   "passes": 55,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
+   "width": "640",
    "state": "boot",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
-   "theme": "night",
-   "width": "1100",
+   "theme": "classic",
+   "width": "640",
    "state": "start",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "playing",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "paused",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "menu",
-   "passes": 55,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "submenu",
    "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
-   "theme": "night",
-   "width": "1100",
-   "state": "tooltip",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "muted",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "ended",
-   "passes": 53,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "1100",
-   "state": "error",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "640",
-   "state": "boot",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "640",
-   "state": "start",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
+   "theme": "classic",
    "width": "640",
    "state": "playing",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "640",
-   "state": "paused",
-   "passes": 54,
-   "incomplete": [
-    "aria-prohibited-attr",
-    "aria-valid-attr-value",
-    "color-contrast"
-   ],
-   "violations": []
-  },
-  {
-   "theme": "night",
-   "width": "640",
-   "state": "menu",
    "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
   {
-   "theme": "night",
+   "theme": "classic",
+   "width": "640",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
    "width": "640",
    "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "tooltip",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "muted",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "ended",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "640",
+   "state": "error",
    "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "boot",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "start",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "playing",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "tooltip",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "muted",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "ended",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "classic",
+   "width": "360",
+   "state": "error",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "boot",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "start",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "playing",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "tooltip",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "muted",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "ended",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "1100",
+   "state": "error",
+   "passes": 57,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "boot",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "start",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "playing",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "paused",
+   "passes": 56,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "menu",
+   "passes": 58,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
+   ],
+   "violations": []
+  },
+  {
+   "theme": "night",
+   "width": "640",
+   "state": "submenu",
+   "passes": 59,
+   "incomplete": [
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -920,11 +996,12 @@
    "theme": "night",
    "width": "640",
    "state": "tooltip",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -932,11 +1009,12 @@
    "theme": "night",
    "width": "640",
    "state": "muted",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -944,11 +1022,12 @@
    "theme": "night",
    "width": "640",
    "state": "ended",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -956,11 +1035,12 @@
    "theme": "night",
    "width": "640",
    "state": "error",
-   "passes": 55,
+   "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -968,10 +1048,11 @@
    "theme": "night",
    "width": "360",
    "state": "boot",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -979,11 +1060,12 @@
    "theme": "night",
    "width": "360",
    "state": "start",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -991,11 +1073,12 @@
    "theme": "night",
    "width": "360",
    "state": "playing",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1003,11 +1086,12 @@
    "theme": "night",
    "width": "360",
    "state": "paused",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1015,11 +1099,12 @@
    "theme": "night",
    "width": "360",
    "state": "menu",
-   "passes": 56,
+   "passes": 58,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1027,11 +1112,12 @@
    "theme": "night",
    "width": "360",
    "state": "submenu",
-   "passes": 57,
+   "passes": 59,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1039,11 +1125,12 @@
    "theme": "night",
    "width": "360",
    "state": "tooltip",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1051,11 +1138,12 @@
    "theme": "night",
    "width": "360",
    "state": "muted",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1063,11 +1151,12 @@
    "theme": "night",
    "width": "360",
    "state": "ended",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1075,11 +1164,12 @@
    "theme": "night",
    "width": "360",
    "state": "error",
-   "passes": 55,
+   "passes": 57,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1087,11 +1177,12 @@
    "theme": "tangerine",
    "width": "1440",
    "state": "page",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1099,11 +1190,12 @@
    "theme": "tangerine",
    "width": "390",
    "state": "page",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1111,11 +1203,12 @@
    "theme": "classic",
    "width": "1440",
    "state": "page",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1123,11 +1216,12 @@
    "theme": "classic",
    "width": "390",
    "state": "page",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1135,11 +1229,12 @@
    "theme": "night",
    "width": "1440",
    "state": "page",
-   "passes": 53,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   },
@@ -1147,11 +1242,12 @@
    "theme": "night",
    "width": "390",
    "state": "page",
-   "passes": 54,
+   "passes": 56,
    "incomplete": [
     "aria-prohibited-attr",
     "aria-valid-attr-value",
-    "color-contrast"
+    "color-contrast",
+    "th-has-data-cells"
    ],
    "violations": []
   }

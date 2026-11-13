@@ -77,26 +77,26 @@ document.addEventListener('change', (e) => {
 
 /* ---------------------------------------------------------------- gallery, captured from the real player */
 const STATES: [string, string, string][] = [
-  ['01-boot', 'Boot', 'The logo drops down an empty panel in fourteen steps.'],
-  ['02-start', 'Start', 'The poster frame in dot-matrix, under a Press Start menu.'],
-  ['03-playing', 'Playing', 'Full colour. Only captions sit on the picture.'],
-  ['04-scrub', 'Scrub', 'Hovering the strip shows the time, and a dot-matrix thumbnail on Mux.'],
-  ['05-volume', 'Volume', 'A plate counts the six grille slots; the grille dims with it.'],
-  ['06-muted', 'Muted', 'The Z key shows the muted speaker; every grille slot goes dark.'],
-  ['07-tooltip', 'Tooltip', 'Each key names itself and its keyboard shortcut after a short hover.'],
-  ['08-focus', 'Focus', 'A 3 px ring, offset from the key, for keyboard users.'],
-  ['09-paused', 'Paused', 'The frame snaps to four tones under a Pause window.'],
-  ['10-buffering', 'Buffering', 'Three stepping dots, and the power LED blinks.'],
-  ['11-ended', 'The end', 'The last frame in dot-matrix; Play, X or a tap runs it again.'],
-  ['12-menu', 'Menu', 'Select opens a handheld menu: captions, speed, quality, motion, picture in picture.'],
-  ['13-fullscreen', 'Fullscreen', 'The handheld steps away; the console floats over the film.'],
-  ['14-fullscreen-idle', 'Fullscreen idle', 'After two seconds only an outlined progress line stays.'],
-  ['15-error', 'Error', 'Static on the panel, and a window that says what went wrong.'],
+  ['01-boot', 'Boot', 'The logo drops in on load'],
+  ['02-start', 'Start', 'Before first play'],
+  ['03-playing', 'Playing', ''],
+  ['04-scrub', 'Seeking', 'With a preview frame'],
+  ['05-volume', 'Volume', ''],
+  ['06-muted', 'Muted', ''],
+  ['07-tooltip', 'Tooltip', 'Name and shortcut'],
+  ['08-focus', 'Keyboard focus', ''],
+  ['09-paused', 'Paused', ''],
+  ['10-buffering', 'Buffering', ''],
+  ['11-ended', 'Ended', ''],
+  ['12-menu', 'Menu', ''],
+  ['13-fullscreen', 'Fullscreen', ''],
+  ['14-fullscreen-idle', 'Fullscreen, idle', 'Controls step away after 2 s'],
+  ['15-error', 'Error', ''],
 ];
 const gallery = document.getElementById('gallery');
 if (gallery) {
   gallery.innerHTML = STATES.map(
-    ([id, name, text], i) => `<li><figure><button type="button" class="shot" data-themed="/states/{t}-720-${id}.webp" data-full="/states/${theme}-720-${id}.webp" aria-label="Enlarge: ${name}"><img data-themed="/states/{t}-720-${id}.webp" src="/states/${theme}-720-${id}.webp" alt="" loading="lazy" decoding="async"></button><figcaption><span class="idx">${String(i + 1).padStart(2, '0')}</span><b>${name}</b> ${text}</figcaption></figure></li>`
+    ([id, name, text], i) => `<li><figure><button type="button" class="shot" data-themed="/states/{t}-720-${id}.webp" data-full="/states/${theme}-720-${id}.webp" aria-label="Enlarge: ${name}"><img data-themed="/states/{t}-720-${id}.webp" src="/states/${theme}-720-${id}.webp" alt="" loading="lazy" decoding="async"></button><figcaption><span class="idx">${String(i + 1).padStart(2, '0')}</span><b>${name}</b>${text ? ` ${text}` : ''}</figcaption></figure></li>`
   ).join('');
 }
 
@@ -117,10 +117,10 @@ dlg.addEventListener('click', (e) => e.target === dlg && dlg.close());
 
 /* ---------------------------------------------------------------- sizes */
 const SIZES: [string, string, string][] = [
-  ['1100', 'L · 900 px and up', 'One row. Bezel with stripes, the Power and Dot Matrix labels.'],
-  ['640', 'M · 460 to 699 px', 'The seek strip moves to its own row above the keys.'],
-  ['420', 'S · 300 to 459 px', 'The grille steps out; volume moves to the D-pad and the mute key.'],
-  ['280', 'XS · under 300 px', 'Duration and key labels drop; every key stays full size.'],
+  ['1100', 'Wide · 900 px and up', 'Everything on one row.'],
+  ['640', 'Medium · 460 to 699 px', 'The seek strip moves above the keys.'],
+  ['420', 'Small · 300 to 459 px', 'The grille steps out; the D-pad still sets the volume.'],
+  ['280', 'Extra small · under 300 px', 'The duration and key labels drop; the keys keep their size.'],
 ];
 const sizes = document.getElementById('sizes-list');
 if (sizes) {
@@ -206,7 +206,12 @@ document.getElementById('lab-form')!.addEventListener('input', (e) => {
   }
   applyLab();
 });
-document.getElementById('accent-reset')!.addEventListener('click', () => {
+// Reset all: every playground setting back to its start, with the theme following the page.
+document.getElementById('lab-reset')!.addEventListener('click', () => {
+  for (const i of document.querySelectorAll<HTMLInputElement>('#lab-form input[type="radio"]'))
+    i.checked = i.name === 'site' ? i.value === 'paper' : i.name === 'theme' ? i.value === theme : i.checked;
+  corner.value = corner.defaultValue;
+  width.value = width.defaultValue;
   accentSet = false;
   applyLab();
 });

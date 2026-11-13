@@ -45,10 +45,10 @@ Every colour and radius is a custom property on `videoboy-skin`, so a site can r
 ```css
 videoboy-skin {
   --vb-accent: #2f7cf6;          /* seek fill, lit menu key, grille */
-  --vb-key: #2f7cf6;             /* A and B faces */
+  --vb-key: #2f7cf6;             /* play and mute key faces */
   --vb-key-hi: #74a6f9;
   --vb-key-lo: #1b4fa6;
-  --vb-key-ink: #fff;            /* icons on A and B */
+  --vb-key-ink: #fff;            /* icons on the play and mute keys */
   --vb-led: #5b9bff;             /* power LED */
   --vb-lcd-0: #0b1d3a;           /* darkest LCD tone ... */
   --vb-lcd-3: #dbe8ff;           /* ... lightest */
@@ -62,7 +62,7 @@ The full list is at the top of `src/videoboy.css`.
 
 `src/lcd.ts` defines `<vb-lcd>`. It captures the current frame into a small canvas, samples it onto a grid of about 160 dots across, auto-levels the luminance (2nd to 98th percentile), ordered-dithers it with a 4×4 Bayer matrix into four tones, and draws each dot with a gap and a soft drop shadow, like a reflective LCD. On pause the colour picture first pixelates up to dot size, then snaps to the four tones; on play it releases back. While paused, seeking redraws the panel, so scrubbing shows the new frame in dot-matrix.
 
-If a frame cannot be read (cross-origin footage without CORS), the panel falls back to an SVG filter that maps the picture onto the same four tones.
+If a frame cannot be read (footage from another domain whose server does not allow cross-origin access, CORS), the panel falls back to an SVG filter that maps the picture onto the same four tones.
 
 `<vb-lcd>` also writes the screen's mode to the container (`data-lcd="start | play | pause | end | error"`, `data-waiting`), which the power LED and the screen windows follow.
 
@@ -70,27 +70,29 @@ If a frame cannot be read (cross-origin footage without CORS), the panel falls b
 
 | Part | Does |
 | --- | --- |
-| Power LED | Lit while playing, low when stopped, blinking while buffering, red on error. |
+| Power light | Shows status: lit while playing, low when stopped, blinking while loading, red on error. |
 | D-pad | Left/right seek 5 s, up/down volume one slot. One tab stop; arrows move between arms; hold to repeat. A press anywhere in its circle picks the arm by angle. |
-| Seek strip | Cartridge thumb on a segmented groove. Dot-matrix storyboard preview on Mux. |
-| Select · Menu | A handheld menu window: captions, speed, quality, audio track, motion, picture in picture. Video.js menu parts, so arrow keys, Enter and Escape work, and rows the source can't offer are hidden. Hotkey Shift. |
-| Start · Full | Fullscreen. |
-| Z key | Mute. Printed Z, the keyboard key that presses it. |
-| X key | Play, pause, replay. Printed X, the keyboard key that presses it. |
-| Speaker grille | Volume slider, six slots lit from the bottom. |
+| Seek strip | Drag the cartridge to move through the video. Hover for a preview frame (Mux storyboard). |
+| Menu key | A handheld menu window: captions, speed, quality, audio track, motion, picture-in-picture. Video.js menu parts, so arrow keys, Enter and Escape work, and rows the source can't offer are hidden. Hotkey Shift. |
+| Full key | Fullscreen on and off. |
+| Mute key | Mute and unmute; the icon shows which. Printed Z, its keyboard key. |
+| Play key | Play, pause, replay; the icon shows which. Printed X, its keyboard key. |
+| Speaker grille | Volume slider, six slots lit from the bottom: drag, click or scroll. |
 
 Keyboard, laid out like a handheld emulator:
 
 | Key | Does |
 | --- | --- |
-| W A S D, arrows | D-pad: A/D seek 5 s, W/S volume one slot |
-| X (also Space, K) | Play key: play, pause, replay |
-| Z (also M) | Mute key |
-| Enter (also F) | Start: fullscreen |
-| Shift on its own | Select: the menu (arrows, Enter, Esc) |
+| A / D, ← / → | Seek 5 s (D-pad left, right) |
+| W / S, ↑ / ↓ | Volume one slot (D-pad up, down) |
+| X, Space, K | Play, pause, replay (Play key) |
+| Z, M | Mute (Mute key) |
+| Enter, F | Fullscreen (Full key). Enter works when no control has focus. |
+| Shift on its own | Open the menu (Menu key). In the menu: arrows move, Enter chooses, Esc backs out. |
 | J / L | Seek 10 s |
 | 0–9, Home, End | Jump to 0–90%, start, end |
-| C | Captions |
+| C | Captions on or off |
+| Tab | Next control. The D-pad is one stop; arrows move between its arms. |
 
 With `keyboard="page"` on `<videoboy-skin>`, these work anywhere on the page, not only when the player has focus. Keys typed in fields, pressed on page controls, or inside another player are left alone.
 
@@ -108,7 +110,7 @@ The script writes `public/a11y-report.json` (every run and rule) and `public/a11
 - Motion: the menu's Motion row offers Auto (follows `prefers-reduced-motion`), Full and Reduced, remembered per browser. Reduced: no mosaic transition, no blinking, no boot drop.
 - `forced-colors`: the handheld redraws itself in system colours.
 - Keys are 40 px or more; the D-pad reads presses across its whole circle; seek strip, grille and menu rows are 38 to 44 px tall.
-- Tested with automation in Chromium. Screen-reader passes with NVDA and VoiceOver, and runs in Firefox and Safari, are still to do.
+- These are automated checks in Chromium, not a full accessibility audit. Manual testing with screen readers (NVDA, VoiceOver) and in Firefox and Safari has not been done yet.
 
 ## Develop
 

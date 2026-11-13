@@ -268,7 +268,7 @@ p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-
 .keymap dd { margin: 0; color: var(--ink-2); font-size: 16px; }
 .checks { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
 .checks li { display: grid; gap: 10px; align-content: start; padding: 22px; border-radius: 14px; background: var(--card); box-shadow: inset 0 0 0 1px var(--rule); }
-.checks b { font-family: var(--pixel); font-weight: 400; font-size: 15px; line-height: 1.2; color: var(--ink); }
+.checks b { font-family: var(--label); font-weight: 700; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.3; color: var(--ink); }
 .checks span { color: var(--ink-2); font-size: 15px; }
 
 /* ---------------------------------------------------------------- footer */
@@ -283,10 +283,7 @@ p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-
   .keymap div { grid-template-columns: 100px 1fr; }
 }
 
-/* ---------------------------------------------------------------- control legend under the hero player */
-.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; max-width: 1100px; margin: 18px auto 0; padding: 14px 18px; list-style: none; border-radius: 12px; background: var(--card); box-shadow: inset 0 0 0 1px var(--rule); font-size: 14px; color: var(--ink-2); }
-.legend li { display: inline-flex; align-items: center; gap: 8px; }
-.legend b { color: var(--ink); }
+/* ---------------------------------------------------------------- console glyphs, used in the keyboard reference */
 .lg { display: inline-grid; place-items: center; flex: none; }
 .lg-dpad { width: 18px; height: 18px; background: linear-gradient(var(--cross), var(--cross)) center / 6px 18px no-repeat, linear-gradient(var(--cross), var(--cross)) center / 18px 6px no-repeat; }
 .lg-a, .lg-b { width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 36% 30%, var(--k-hi), var(--k) 50%, var(--k-lo)); color: var(--k-ink); font: 7px var(--pixel); }
@@ -294,7 +291,11 @@ p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-
 .lg-grille { width: 20px; height: 14px; background: repeating-linear-gradient(66deg, var(--k) 0 3px, transparent 3px 6px); }
 .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
 .btn-ghost:hover { background: var(--paper-2); }
-.evidence { margin-top: 20px; }
+.evidence { margin-top: 28px; padding: 22px 24px; border-radius: 14px; box-shadow: inset 0 0 0 1px var(--rule); max-width: 880px; }
+.evidence h3 { margin: 0 0 10px; font-family: var(--label); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; }
+.evidence p { margin: 0 0 10px; font-size: 15px; color: var(--ink-2); }
+.evidence p:last-child { margin-bottom: 0; }
+.evidence #axe-count { font-family: var(--pixel); font-weight: 400; color: var(--ink); }
 .lg-a::after { content: ''; width: 0; height: 0; border-block: 4px solid transparent; border-left: 6px solid var(--k-ink); margin-left: 2px; }
 .lg-b::after { content: ''; width: 6px; height: 6px; background: var(--k-ink); clip-path: polygon(0 30%, 40% 30%, 100% 0, 100% 100%, 40% 70%, 0 70%); }
 
@@ -310,3 +311,40 @@ p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-
 
 /* Night: a faint screen-glow behind the hero handheld, so the dark console lifts off the dark page. */
 :root[data-page-theme='night'] .hero { background: radial-gradient(60% 45% at 50% 52%, rgb(79 200 245 / 0.09), transparent 70%); }
+
+/* ---------------------------------------------------------------- keyboard reference */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.keytable { width: 100%; max-width: 980px; border-collapse: collapse; font-size: 16px; }
+.keytable thead th { padding: 0 16px 10px 0; text-align: left; font-family: var(--label); font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); border-bottom: 2px solid var(--ink); }
+.keytable .kt-group th { padding: 22px 0 8px; text-align: left; font-family: var(--label); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tan-ink); border-bottom: 1px solid var(--rule); }
+.keytable tbody tr:not(.kt-group) > * { padding: 11px 16px 11px 0; vertical-align: middle; border-bottom: 1px solid var(--rule); }
+.keytable tbody th[scope='row'] { width: 32%; text-align: left; font-weight: 600; }
+.keytable td:nth-child(2) { width: 34%; color: var(--ink-2); white-space: nowrap; }
+.keytable td:nth-child(3) { color: var(--ink-2); }
+.keytable td .lg { margin-right: 8px; vertical-align: -3px; }
+.keytable kbd { margin-right: 2px; }
+@media (max-width: 640px) {
+  .keytable thead { display: none; }
+  .keytable tbody tr:not(.kt-group) { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+  .keytable tbody tr:not(.kt-group) > * { padding: 0; border: 0; width: auto !important; }
+  .keytable td:nth-child(3) { grid-column: 1 / -1; font-size: 14px; }
+  .keytable td:nth-child(3):empty { display: none; }
+  .keytable td:nth-child(2) { white-space: normal; text-align: right; }
+}
+
+/* ---------------------------------------------------------------- playground helpers */
+.hint { margin: -6px 0 22px; font-size: 15px; font-weight: 600; color: var(--tan-ink); }
+.help { margin: 0 0 4px; font-size: 13px; line-height: 1.45; color: var(--ink-2); }
+.field .help { grid-column: 1 / -1; margin: 0; }
+.field input[type='color'] { grid-column: 1 / -1; }
+.btn-sm { justify-self: start; min-height: 40px; margin: 0; padding: 0 16px; font-size: 11px; cursor: pointer; border: 0; }
+.lab-out { grid-column: 1 / -1; }
+.lab-out .help { margin-bottom: 8px; }
+
+/* ---------------------------------------------------------------- install steps */
+.steps { margin: 26px 0 18px; padding: 0; list-style: none; counter-reset: step; max-width: 900px; }
+.steps > li { counter-increment: step; position: relative; padding: 0 0 22px 48px; color: var(--ink-2); }
+.steps > li b { color: var(--ink); }
+.steps > li::before { content: counter(step); position: absolute; left: 0; top: -2px; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--paper); font: 11px var(--pixel); }
+.steps .code { margin: 12px 0 0; }
+.code code { padding: 0; border-radius: 0; background: none; font-size: inherit; color: inherit; }
