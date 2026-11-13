@@ -21,5 +21,5 @@ VIDEOBOY accessibility tree (Playwright ariaSnapshot, Chromium), 2026-11-13
 - menu "Player menu":
   - menuitem "Captions English"
   - menuitem "Speed 1×"
-  - menuitem "Motion Auto · Full"
+  - menuitem "Motion Auto"
   - menuitem "Picture in picture"

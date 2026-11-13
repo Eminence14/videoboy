@@ -51,13 +51,13 @@ const STATES: [string, string, string][] = [
   ['03-playing', 'Playing', 'Full colour. Only captions sit on the picture.'],
   ['04-scrub', 'Scrub', 'Hovering the strip shows the time, and a dot-matrix thumbnail on Mux.'],
   ['05-volume', 'Volume', 'A plate counts the six grille slots; the grille dims with it.'],
-  ['06-muted', 'Muted', 'B shows the muted speaker; every grille slot goes dark.'],
-  ['07-tooltip', 'Tooltip', 'Each key names itself and its shortcut after a short hover.'],
+  ['06-muted', 'Muted', 'The Z key shows the muted speaker; every grille slot goes dark.'],
+  ['07-tooltip', 'Tooltip', 'Each key names itself and its keyboard shortcut after a short hover.'],
   ['08-focus', 'Focus', 'A 3 px ring, offset from the key, for keyboard users.'],
   ['09-paused', 'Paused', 'The frame snaps to four tones under a Pause window.'],
   ['10-buffering', 'Buffering', 'Three stepping dots, and the power LED blinks.'],
-  ['11-ended', 'The end', 'The last frame in dot-matrix; A or a tap plays again.'],
-  ['12-captions-off', 'Captions off', 'The CC key goes back to grey.'],
+  ['11-ended', 'The end', 'The last frame in dot-matrix; Play, X or a tap runs it again.'],
+  ['12-menu', 'Menu', 'Select opens a handheld menu: captions, speed, quality, motion, picture in picture.'],
   ['13-fullscreen', 'Fullscreen', 'The handheld steps away; the console floats over the film.'],
   ['14-fullscreen-idle', 'Fullscreen idle', 'After two seconds only an outlined progress line stays.'],
   ['15-error', 'Error', 'Static on the panel, and a window that says what went wrong.'],
@@ -88,7 +88,7 @@ dlg.addEventListener('click', (e) => e.target === dlg && dlg.close());
 const SIZES: [string, string, string][] = [
   ['1100', 'L · 900 px and up', 'One row. Bezel with stripes, the Power and Dot Matrix labels.'],
   ['640', 'M · 460 to 699 px', 'The seek strip moves to its own row above the keys.'],
-  ['420', 'S · 300 to 459 px', 'The grille steps out; volume moves to the D-pad and B.'],
+  ['420', 'S · 300 to 459 px', 'The grille steps out; volume moves to the D-pad and the mute key.'],
   ['280', 'XS · under 300 px', 'Duration and key labels drop; every key stays full size.'],
 ];
 const sizes = document.getElementById('sizes-list');

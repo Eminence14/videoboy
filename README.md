@@ -2,7 +2,7 @@
 
 A dot-matrix handheld skin for the [Video.js v10](https://videojs.org) player.
 
-Full colour while it plays. The moment it stops, the screen becomes a four-tone dot-matrix panel: a boot logo, a Press Start menu, a Pause window, an end card, and static when the signal drops. The controls live on the console below the screen, so nothing covers the picture while it plays. In fullscreen the console floats over the film and then steps away to a single outlined progress line.
+Full colour while it plays. The moment it stops, the screen becomes a four-tone dot-matrix panel: a boot logo, a Press Start menu, a Pause window, an end card, and static when the signal drops. The controls (D-pad, seek strip, Menu, Full, play and mute keys, speaker-grille volume) live on the console below the screen, so nothing covers the picture while it plays. In fullscreen the console floats over the film and then steps away to a single outlined progress line.
 
 Designed and built by [Victor Ibidunmoye](https://cad.victoribidunmoye.me) for the #Video.js Skins Design Challenge.
 
@@ -44,7 +44,7 @@ Every colour and radius is a custom property on `videoboy-skin`, so a site can r
 
 ```css
 videoboy-skin {
-  --vb-accent: #2f7cf6;          /* seek fill, CC lit, grille */
+  --vb-accent: #2f7cf6;          /* seek fill, lit menu key, grille */
   --vb-key: #2f7cf6;             /* A and B faces */
   --vb-key-hi: #74a6f9;
   --vb-key-lo: #1b4fa6;
@@ -75,8 +75,8 @@ If a frame cannot be read (cross-origin footage without CORS), the panel falls b
 | Seek strip | Cartridge thumb on a segmented groove. Dot-matrix storyboard preview on Mux. |
 | Select · Menu | A handheld menu window: captions, speed, quality, audio track, motion, picture in picture. Video.js menu parts, so arrow keys, Enter and Escape work, and rows the source can't offer are hidden. Hotkey Shift. |
 | Start · Full | Fullscreen. |
-| B | Mute. |
-| A | Play, pause, replay. |
+| Z key | Mute. Printed Z, the keyboard key that presses it. |
+| X key | Play, pause, replay. Printed X, the keyboard key that presses it. |
 | Speaker grille | Volume slider, six slots lit from the bottom. |
 
 Keyboard, laid out like a handheld emulator:
@@ -84,8 +84,8 @@ Keyboard, laid out like a handheld emulator:
 | Key | Does |
 | --- | --- |
 | W A S D, arrows | D-pad: A/D seek 5 s, W/S volume one slot |
-| X (also Space, K) | A: play, pause, replay |
-| Z (also M) | B: mute |
+| X (also Space, K) | Play key: play, pause, replay |
+| Z (also M) | Mute key |
 | Enter (also F) | Start: fullscreen |
 | Shift on its own | Select: the menu (arrows, Enter, Esc) |
 | J / L | Seek 10 s |

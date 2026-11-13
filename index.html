@@ -51,8 +51,8 @@
 
       <ul class="legend" aria-label="How the controls map">
         <li><span class="lg lg-dpad" aria-hidden="true"></span><b>D-pad</b> ◀ ▶ seek 5 s · ▲ ▼ volume <kbd>WASD</kbd></li>
-        <li><span class="lg lg-a" aria-hidden="true">A</span><b>A</b> play · pause <kbd>X</kbd></li>
-        <li><span class="lg lg-b" aria-hidden="true">B</span><b>B</b> mute <kbd>Z</kbd></li>
+        <li><span class="lg lg-a" aria-hidden="true"></span><b>X</b> play · pause</li>
+        <li><span class="lg lg-b" aria-hidden="true"></span><b>Z</b> mute</li>
         <li><span class="lg lg-pill" aria-hidden="true"></span><b>Menu</b> captions · speed · quality · motion · PiP <kbd>Shift</kbd></li>
         <li><span class="lg lg-pill" aria-hidden="true"></span><b>Full</b> fullscreen <kbd>Enter</kbd></li>
         <li><span class="lg lg-grille" aria-hidden="true"></span><b>Grille</b> volume</li>
@@ -80,7 +80,7 @@
       <ol class="trio">
         <li><figure><img src="/states/tangerine-720-03-playing.webp" alt="VIDEOBOY playing: the film in full colour inside the bezel, a caption at the foot, the console below." width="720" height="531" loading="lazy" /><figcaption><b>Plays</b> in full colour. Nothing sits on the picture but captions.</figcaption></figure></li>
         <li><figure><img src="/states/tangerine-720-09-paused.webp" alt="VIDEOBOY paused: the same frame redrawn as tangerine dot-matrix pixels with a small Pause window." width="720" height="531" loading="lazy" /><figcaption><b>Stops</b> in four tones. Pixelates in, snaps to the panel.</figcaption></figure></li>
-        <li><figure><img src="/states/tangerine-720-11-ended.webp" alt="VIDEOBOY at the end: the last frame in dot-matrix with a window reading The end, A to play again." width="720" height="531" loading="lazy" /><figcaption><b>Ends</b> on its own card. A plays it again.</figcaption></figure></li>
+        <li><figure><img src="/states/tangerine-720-11-ended.webp" alt="VIDEOBOY at the end: the last frame in dot-matrix with a window reading The end, A to play again." width="720" height="531" loading="lazy" /><figcaption><b>Ends</b> on its own card. Play, or X, runs it again.</figcaption></figure></li>
       </ol>
     </section>
 
@@ -91,7 +91,7 @@
       <p class="intro">Nothing on the console is decoration. Each part is a Video.js v10 component, and each one shows its state on its face.</p>
       <figure class="anatomy">
         <div class="anatomy-art">
-          <img src="/states/anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 menu key, 5 fullscreen key, 6 B key, 7 A key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
+          <img src="/states/anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 menu key, 5 fullscreen key, 6 mute key, 7 play key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
           <ol class="pins" aria-hidden="true" id="pins"></ol>
         </div>
         <ol class="parts">
@@ -100,8 +100,8 @@
           <li><b>Seek strip</b><span>A cartridge rides a segmented groove. Hover for a dot-matrix preview from the Mux storyboard.</span></li>
           <li><b>Select · Menu</b><span>Opens a handheld menu window: captions, speed, quality, audio track, motion and picture in picture. Arrow keys move the cursor, Enter picks, Escape backs out. Rows the source can’t offer stay hidden.</span></li>
           <li><b>Start · Full</b><span>Fullscreen. The console floats over the film, then steps away to a single line.</span></li>
-          <li><b>B</b><span>Mute. Its face shows the speaker or the muted speaker.</span></li>
-          <li><b>A</b><span>Play, pause, replay. The face changes with the state.</span></li>
+          <li><b>Z · Mute</b><span>The face shows the speaker or the muted speaker. Printed Z, the key that presses it.</span></li>
+          <li><b>X · Play</b><span>Play, pause, replay; the face changes with the state. Printed X, the key that presses it.</span></li>
           <li><b>Speaker grille</b><span>The volume slider. Six slots, each lit from the bottom. Drag, click, scroll, or W and S.</span></li>
         </ol>
       </figure>
@@ -178,8 +178,8 @@
       <p class="intro">Laid out like a handheld emulator, so it is already in a gamer’s fingers. On this page the keys work anywhere: no need to click the player first.</p>
       <dl class="keymap">
         <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>D-pad: <b>A</b>/<b>D</b> seek 5 s, <b>W</b>/<b>S</b> volume. Arrow keys too.</dd></div>
-        <div><dt><kbd>X</kbd></dt><dd>The <b>A</b> key: play, pause, replay. Space and K too.</dd></div>
-        <div><dt><kbd>Z</kbd></dt><dd>The <b>B</b> key: mute. M too.</dd></div>
+        <div><dt><kbd>X</kbd></dt><dd><b>Play</b> key: play, pause, replay. Space and K too.</dd></div>
+        <div><dt><kbd>Z</kbd></dt><dd><b>Mute</b> key. M too.</dd></div>
         <div><dt><kbd>Enter</kbd></dt><dd><b>Start</b>: fullscreen. F too.</dd></div>
         <div><dt><kbd>Shift</kbd></dt><dd><b>Select</b>: the menu. Arrows move, Enter picks, Esc backs out.</dd></div>
         <div><dt><kbd>J</kbd><kbd>L</kbd></dt><dd>Seek 10 seconds</dd></div>
@@ -202,7 +202,7 @@
         <li><b>Motion</b><span>Menu › Motion: Auto follows the system’s reduced-motion setting; Full and Reduced override it and are remembered. Reduced drops the mosaic, the blinking and the logo drop.</span></li>
         <li><b>Contrast</b><span id="contrast-note">Labels and timecodes reach at least 6.6:1 on their shell, LCD text at least 6.6:1, in all three themes. Key icons reach at least 5.7:1.</span></li>
         <li><b>Forced colours</b><span>In Windows high contrast the handheld redraws itself in system colours, with outlined keys and a Highlight seek fill.</span></li>
-        <li><b>Targets</b><span>A, B and the system keys are 40 px or more. The D-pad reads a press anywhere in its 90 px circle, so each arm is a quarter of it. The seek strip, grille and menu rows are 38 to 44 px tall.</span></li>
+        <li><b>Targets</b><span>The play, mute and system keys are 40 px or more. The D-pad reads a press anywhere in its 90 px circle, so each arm is a quarter of it. The seek strip, grille and menu rows are 38 to 44 px tall.</span></li>
       </ul>
       <p class="small evidence">Reproduce it: <code>npm run test:a11y</code> in the <a href="https://github.com/Eminence14/videoboy">repository</a> runs every check above. Raw results: <a href="/a11y-report.json">a11y-report.json</a>. What a screen reader is given: <a href="/a11y-tree.txt">a11y-tree.txt</a>. Tested in Chromium with automation; NVDA and VoiceOver passes are still to come, and other browsers are covered by the tokens and fallbacks rather than by test runs.</p>
     </section>

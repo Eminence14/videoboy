@@ -153,7 +153,7 @@ function template(id: string) {
       <span class="vb-start-logo">VIDEOBOY</span>
       <span class="vb-start-title vb-when-start">${T('pressStart', 'Press start')}</span>
       <span class="vb-start-title vb-when-end">${T('theEnd', 'The end')}</span>
-      <span class="vb-start-hint"><span class="vb-when-start">X &middot; Space &middot; Tap</span><span class="vb-when-end">A or X to play again</span></span>
+      <span class="vb-start-hint"><span class="vb-when-start">X &middot; Space &middot; Tap</span><span class="vb-when-end">Play &middot; X to watch again</span></span>
     </span>
     <div class="vb-window vb-pause-window" aria-hidden="true">${T('paused', 'Pause')}</div>
     <media-buffering-indicator class="vb-loading"><span class="vb-loading-dots" aria-hidden="true"><i></i><i></i><i></i></span></media-buffering-indicator>
@@ -244,12 +244,12 @@ function template(id: string) {
           <span class="vb-ab-recess" aria-hidden="true"></span>
           <span class="vb-key-slot vb-slot-b">
             <media-mute-button class="vb-key vb-b" id="${b}">${key(icon('vol', 'vb-i-vol') + icon('mute', 'vb-i-mute'))}</media-mute-button>
-            <span class="vb-label vb-key-letter" aria-hidden="true">B</span>
+            <span class="vb-label vb-key-letter" aria-hidden="true">Z</span>
           </span>
           <media-tooltip trigger="${b}" side="top" class="vb-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="vb-tip-key"></media-tooltip-shortcut></media-tooltip>
           <span class="vb-key-slot vb-slot-a">
             <media-play-button class="vb-key vb-a" id="${a}">${key(icon('play', 'vb-i-play') + icon('pause', 'vb-i-pause') + icon('replay', 'vb-i-replay'))}</media-play-button>
-            <span class="vb-label vb-key-letter" aria-hidden="true">A</span>
+            <span class="vb-label vb-key-letter" aria-hidden="true">X</span>
           </span>
           <media-tooltip trigger="${a}" side="top" class="vb-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="vb-tip-key"></media-tooltip-shortcut></media-tooltip>
         </div>
@@ -321,6 +321,23 @@ function syncFilter(container: HTMLElement) {
   container.querySelectorAll('.vb-lcdf-map > *').forEach((f, ch) => f.setAttribute('tableValues', rgb.map((c) => c[ch]).join(' ')));
 }
 
+/*
+ * The skin draws captions itself, on plates it can place and size. A media element that renders
+ * into its own shadow root (such as <mux-video>) would draw the browser's cues as well, out of
+ * reach of the skin's stylesheet, so the same rule is placed inside that shadow root.
+ */
+const HIDE_NATIVE_CUES = `video::-webkit-media-text-track-container{display:none!important}video::cue{color:transparent!important;background:transparent!important;text-shadow:none!important}`;
+function hideNativeCues(container: HTMLElement) {
+  for (const m of container.querySelectorAll(':scope > *')) {
+    const root = (m as HTMLElement).shadowRoot;
+    if (!root || root.querySelector('style[data-vb-cues]')) continue;
+    const style = document.createElement('style');
+    style.setAttribute('data-vb-cues', '');
+    style.textContent = HIDE_NATIVE_CUES;
+    root.append(style);
+  }
+}
+
 function clipStoryboard(container: HTMLElement) {
   const media = container.querySelector(':scope > [src*="stream.mux.com"]');
   const track = media?.querySelector<HTMLTrackElement>('track[data-storyboard]');
@@ -375,7 +392,7 @@ class VideoboySkinElement extends HTMLElement {
     } catch {}
     container.prepend(...media);
     this.append(container);
-    requestAnimationFrame(() => syncFilter(container));
+    requestAnimationFrame(() => { syncFilter(container); hideNativeCues(container); });
     // Observers are kept so a skin moved or removed from the page stops watching; they resume on reconnect.
     this.#observe = () => {
       const themes = new MutationObserver(() => syncFilter(container));
@@ -387,9 +404,15 @@ class VideoboySkinElement extends HTMLElement {
       media.observe(this, { childList: true });
       // A Mux instant clip (asset_start_time / asset_end_time on the stream URL) gets a storyboard clipped
       // the same way, so seek previews show the cut, not the whole film.
-      const clip = new MutationObserver(() => clipStoryboard(container));
+      const clip = new MutationObserver(() => {
+        clipStoryboard(container);
+        hideNativeCues(container);
+      });
       clip.observe(container, { subtree: true, childList: true, attributes: true, attributeFilter: ['src'] });
       clipStoryboard(container);
+      hideNativeCues(container);
+      // A media element upgraded after the skin gets its shadow root late: catch it on first load or play.
+      for (const type of ['loadedmetadata', 'play']) container.addEventListener(type, () => hideNativeCues(container), { capture: true });
       const lcd = new MutationObserver(() => {
         const end = container.getAttribute('data-lcd') === 'end';
         start.setAttribute('aria-label', end ? 'The end. Play again' : 'Press start: play video');
