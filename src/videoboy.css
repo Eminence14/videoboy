@@ -652,7 +652,7 @@ media-controls.vb-controls { display: block; grid-area: 2 / 1; position: relativ
   box-shadow: 0 2px 0 var(--vb-pill-lo), 0 3px 4px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.35);
   transition: translate 0.06s, box-shadow 0.06s;
 }
-.vb-pill:active .vb-pill-cap { translate: 0 2px; box-shadow: 0 0 0 var(--vb-pill-lo), inset 0 1px 2px rgb(0 0 0 / 0.3); }
+.vb-pill:is(:active, [data-kbd-press]) .vb-pill-cap { translate: 0 2px; box-shadow: 0 0 0 var(--vb-pill-lo), inset 0 1px 2px rgb(0 0 0 / 0.3); }
 media-captions-button.vb-pill[data-active] .vb-pill-cap { background: linear-gradient(180deg, var(--vb-key-hi), var(--vb-accent)); box-shadow: 0 2px 0 var(--vb-key-lo), 0 0 10px color-mix(in srgb, var(--vb-accent) 55%, transparent), inset 0 1px 0 rgb(255 255 255 / 0.35); }
 .vb-fs .vb-i-exit, .videoboy .vb-sys .vb-i-exit { display: none; }
 .vb-sys-slot:has(.vb-fs[data-fullscreen]) .vb-i-exit { display: inline; }
@@ -783,7 +783,7 @@ media-captions-button.vb-pill[data-active] .vb-pill-cap { background: linear-gra
   background: rgb(255 255 255 / 0.32);
   rotate: -30deg;
 }
-.vb-key:active .vb-key-face { translate: 0 3px; box-shadow: 0 0 0 transparent, 0 2px 3px rgb(0 0 0 / 0.25), inset 0 2px 3px rgb(0 0 0 / 0.25); }
+.vb-key:is(:active, [data-kbd-press]) .vb-key-face { translate: 0 3px; box-shadow: 0 0 0 transparent, 0 2px 3px rgb(0 0 0 / 0.25), inset 0 2px 3px rgb(0 0 0 / 0.25); }
 .vb-key-icons { position: relative; display: grid; }
 .vb-key-icons .vb-ico { grid-area: 1 / 1; width: 15px; height: 15px; display: none; }
 .vb-a:not([data-started]) .vb-i-play,
@@ -963,11 +963,10 @@ media-container.videoboy:fullscreen:has(.vb-controls:not([data-visible])) { curs
 @keyframes vb-dots { 0% { opacity: 1; } 33% { opacity: 0.25; } 66% { opacity: 0.25; } }
 @keyframes vb-drop { from { translate: 0 calc(-50cqh - 1em); } to { translate: 0 0; } }
 
-@media (prefers-reduced-motion: reduce) {
-  .vb-boot-logo, .vb-start-title, .vb-start-title::before, .vb-loading-dots i, .videoboy[data-waiting] .vb-led { animation: none !important; }
-  .vb-boot { transition: none; }
-  .vb-deck, .vb-line, .vb-captions, .vb-cart, .vb-key-face, .vb-pill-cap { transition: none !important; }
-}
+/* Reduced motion: the skin sets data-reduce-motion from the menu's Motion row (Auto follows the system). */
+.videoboy[data-reduce-motion] :is(.vb-boot-logo, .vb-start-title, .vb-start-title::before, .vb-loading-dots i, .vb-led) { animation: none !important; }
+.videoboy[data-reduce-motion] .vb-boot { transition: none; }
+.videoboy[data-reduce-motion] :is(.vb-deck, .vb-line, .vb-captions, .vb-cart, .vb-key-face, .vb-pill-cap) { transition: none !important; }
 @media (prefers-contrast: more) {
   videoboy-skin { --vb-ink: #000; }
   videoboy-skin[data-theme='night'] { --vb-ink: #fff; }

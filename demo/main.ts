@@ -5,6 +5,8 @@ import './page.css';
 
 /** Set VITE_MUX_PLAYBACK_ID to stream from Mux; ?local (or no ID) plays the bundled clip instead. */
 const MUX_ID = (import.meta.env.VITE_MUX_PLAYBACK_ID as string | undefined)?.trim();
+/** The two-minute cut: Tears of Steel 4:50 to 6:50, clipped by Mux from the same asset and playback ID. */
+const CLIP = { start: 290, end: 410, poster: 300 };
 const params = new URLSearchParams(location.search);
 const local = params.has('local') || !MUX_ID;
 
@@ -14,13 +16,13 @@ function heroMedia() {
   if (!local && MUX_ID) {
     const m = document.createElement('mux-video');
     // <mux-video> reads a Mux stream URL; the playback ID is taken from it.
-    m.setAttribute('src', `https://stream.mux.com/${MUX_ID}.m3u8`);
+    m.setAttribute('src', `https://stream.mux.com/${MUX_ID}.m3u8?asset_start_time=${CLIP.start}&asset_end_time=${CLIP.end}`);
     m.setAttribute('playsinline', '');
     m.setAttribute('crossorigin', 'anonymous');
     m.setAttribute('preload', 'auto');
     // The start screen draws Mux's own thumbnail, so the stream loads from 0:00 only once.
-    skin.setAttribute('poster', `https://image.mux.com/${MUX_ID}/thumbnail.webp?time=36&width=960`);
-    m.innerHTML = '<track kind="subtitles" src="/media/tos-en.vtt" srclang="en" label="English" default>';
+    skin.setAttribute('poster', `https://image.mux.com/${MUX_ID}/thumbnail.webp?time=${CLIP.poster}&width=960`);
+    m.innerHTML = '<track kind="subtitles" src="/media/tos-clip-en.vtt" srclang="en" label="English" default>';
     return m;
   }
   skin.setAttribute('poster-time', '12');

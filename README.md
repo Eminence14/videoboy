@@ -26,7 +26,7 @@ import '@videojs/html/media/mux-video';
 </video-player>
 ```
 
-Any `<video>` works in place of `<mux-video>`.
+Any `<video>` works in place of `<mux-video>`. Mux instant clips work too: add `asset_start_time` and `asset_end_time` to the stream URL, and the skin clips the seek-preview storyboard to match.
 
 ### Attributes on `<videoboy-skin>`
 
@@ -35,6 +35,7 @@ Any `<video>` works in place of `<mux-video>`.
 | `data-theme` | `tangerine` (default), `classic`, `night` | Picks a palette for the shell, keys and LCD tones. |
 | `poster` | image URL | The start screen draws this image in dot-matrix (for Mux: `https://image.mux.com/<id>/thumbnail.webp?time=36`). The media is not touched until Start. |
 | `poster-time` | seconds | Without `poster`, the start screen parks the media on this frame. Playback still starts at 0. |
+| `keyboard` | `page` | The player's keys work anywhere on the page, not only when it has focus. Use on one player per page. |
 | `no-chime` | (boolean) | Turns off the short start chime. The chime only plays from a user gesture, scaled by the player volume, never when muted. |
 
 ### Tokens
@@ -72,13 +73,26 @@ If a frame cannot be read (cross-origin footage without CORS), the panel falls b
 | Power LED | Lit while playing, low when stopped, blinking while buffering, red on error. |
 | D-pad | Left/right seek 5 s, up/down volume one slot. One tab stop; arrows move between arms; hold to repeat. A press anywhere in its circle picks the arm by angle. |
 | Seek strip | Cartridge thumb on a segmented groove. Dot-matrix storyboard preview on Mux. |
-| Select · Menu | A handheld menu window: captions, speed, quality, audio track, picture in picture. Video.js menu parts, so arrow keys, Enter and Escape work, and rows the source can't offer are hidden. Hotkey S. |
+| Select · Menu | A handheld menu window: captions, speed, quality, audio track, motion, picture in picture. Video.js menu parts, so arrow keys, Enter and Escape work, and rows the source can't offer are hidden. Hotkey Shift. |
 | Start · Full | Fullscreen. |
 | B | Mute. |
 | A | Play, pause, replay. |
 | Speaker grille | Volume slider, six slots lit from the bottom. |
 
-Keyboard: Space/K play, ←/→ 5 s, J/L 10 s, ↑/↓ volume, 0–9 jump to 0–90%, Home/End, M mute, C captions, S menu, F fullscreen.
+Keyboard, laid out like a handheld emulator:
+
+| Key | Does |
+| --- | --- |
+| W A S D, arrows | D-pad: A/D seek 5 s, W/S volume one slot |
+| X (also Space, K) | A: play, pause, replay |
+| Z (also M) | B: mute |
+| Enter (also F) | Start: fullscreen |
+| Shift on its own | Select: the menu (arrows, Enter, Esc) |
+| J / L | Seek 10 s |
+| 0–9, Home, End | Jump to 0–90%, start, end |
+| C | Captions |
+
+With `keyboard="page"` on `<videoboy-skin>`, these work anywhere on the page, not only when the player has focus. Keys typed in fields, pressed on page controls, or inside another player are left alone.
 
 ## Accessibility
 
@@ -91,7 +105,7 @@ The script writes `public/a11y-report.json` (every run and rule) and `public/a11
 - 0 axe-core violations across 91 runs: WCAG 2.2 A/AA and best-practice rules, three themes, three widths, ten states (boot, start, playing, paused, menu, submenu, tooltip, muted, ended, error), and the page.
 - Labels and timecodes reach at least 6.6:1; key icons at least 5.7:1.
 - Every control is a Video.js component with its own name and shortcut; the status announcer reports changes. The LCD canvas is hidden from assistive tech.
-- `prefers-reduced-motion`: no mosaic transition, no blinking, no boot drop.
+- Motion: the menu's Motion row offers Auto (follows `prefers-reduced-motion`), Full and Reduced, remembered per browser. Reduced: no mosaic transition, no blinking, no boot drop.
 - `forced-colors`: the handheld redraws itself in system colours.
 - Keys are 40 px or more; the D-pad reads presses across its whole circle; seek strip, grille and menu rows are 38 to 44 px tall.
 - Tested with automation in Chromium. Screen-reader passes with NVDA and VoiceOver, and runs in Firefox and Safari, are still to do.
@@ -110,4 +124,4 @@ Set `VITE_MUX_PLAYBACK_ID` (see `.env.production`) to stream from Mux; add `?loc
 
 - Skin code: Apache License 2.0 (see `LICENSE`).
 - Fonts: Press Start 2P and Silkscreen, SIL Open Font License 1.1 (see `src/fonts`).
-- Demo film: *Tears of Steel* © Blender Foundation, [mango.blender.org](https://mango.blender.org), CC BY 3.0. Playground clips and captions are original.
+- Demo film: a two-minute cut (4:50 to 6:50) of *Tears of Steel*, streamed as a Mux instant clip (`?asset_start_time=290&asset_end_time=410`) of the full asset, © Blender Foundation, [mango.blender.org](https://mango.blender.org), CC BY 3.0. Playground clips and captions are original.

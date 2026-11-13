@@ -88,6 +88,10 @@ class DpadElement extends UIElement {
     }
     this.#flash(dir);
   }
+  /** Show a press on one arm, for keys pressed on the keyboard. */
+  flash(dir: string) {
+    if (dir in ARMS) this.#flash(dir as Dir);
+  }
   #flash(dir: Dir) {
     this.setAttribute('data-pressed', dir);
     if (this.#flashTimer) clearTimeout(this.#flashTimer);

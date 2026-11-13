@@ -20,7 +20,7 @@ type Mode = 'boot' | 'start' | 'play' | 'pause' | 'end' | 'error';
 export type RGB = [number, number, number];
 
 const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map((v) => (v + 0.5) / 16 - 0.5);
-const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 const ease = (t: number) => 1 - Math.pow(1 - t, 3);
 
 /** One parser for every colour the skin reads: canvas dots and the SVG fallback use the same values. */
@@ -72,6 +72,8 @@ export function resolveVideo(el: Element | null): HTMLVideoElement | null {
 }
 
 export class LcdElement extends HTMLElement {
+  /** Motion follows the skin's own setting (menu: Auto, Full, Reduced), which defaults to the system's. */
+  #reduce = () => (this.#host ? this.#host.hasAttribute('data-reduce-motion') : matchMedia('(prefers-reduced-motion: reduce)').matches);
   #host: HTMLElement | null = null;
   #media: Element | null = null;
   #video: HTMLVideoElement | null = null;
@@ -110,7 +112,7 @@ export class LcdElement extends HTMLElement {
     if (skin) this.#mo.observe(skin, { attributes: true, attributeFilter: ['data-theme', 'style', 'poster'] });
     this.#setMode('boot');
     // The boot logo drops for ~1.6 s; reduced motion skips straight to the start screen.
-    this.#bootTimer = window.setTimeout(() => this.#host?.setAttribute('data-booted', ''), reduceMotion() ? 0 : 1700);
+    this.#bootTimer = window.setTimeout(() => this.#host?.setAttribute('data-booted', ''), this.#reduce() ? 0 : 1700);
     this.#findMedia();
     this.#loadPoster();
   }
@@ -495,7 +497,7 @@ export class LcdElement extends HTMLElement {
     cancelAnimationFrame(this.#anim);
     this.#anim = 0;
     const host = this.#host;
-    if (reduceMotion() || !this.#hasFrame) {
+    if (this.#reduce() || !this.#hasFrame) {
       this.removeAttribute('data-anim');
       if (dir === 'in') this.#drawDots(1);
       return;
@@ -532,7 +534,7 @@ export class LcdElement extends HTMLElement {
 
   #startNoise() {
     this.#drawNoise();
-    if (!reduceMotion()) this.#noise = window.setInterval(() => this.#drawNoise(), 110);
+    if (!this.#reduce()) this.#noise = window.setInterval(() => this.#drawNoise(), 110);
   }
 
   #drawNoise() {

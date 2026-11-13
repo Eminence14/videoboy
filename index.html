@@ -40,21 +40,21 @@
         <p class="eyebrow"><span class="led" aria-hidden="true"></span>A skin for Video.js v10</p>
         <h1 id="hero-title" class="wordmark">VIDEOBOY</h1>
         <p class="lede">A video player built like a handheld. Full colour while it plays. The moment it stops, the screen becomes a four-tone dot-matrix panel.</p>
-        <p class="try">Press <kbd>A</kbd> or <kbd>Space</kbd> to start. Pause any time and watch the screen change.</p>
+        <p class="try">Press <kbd>X</kbd> or <kbd>Space</kbd> to start, from anywhere on the page. Pause any time and watch the screen change.</p>
       </div>
 
       <div class="hero-player">
         <video-player id="player">
-          <videoboy-skin id="skin" poster-time="36"></videoboy-skin>
+          <videoboy-skin id="skin" poster-time="36" keyboard="page"></videoboy-skin>
         </video-player>
       </div>
 
       <ul class="legend" aria-label="How the controls map">
-        <li><span class="lg lg-dpad" aria-hidden="true"></span><b>D-pad</b> ◀ ▶ seek 5 s · ▲ ▼ volume</li>
-        <li><span class="lg lg-a" aria-hidden="true">A</span><b>A</b> play · pause</li>
-        <li><span class="lg lg-b" aria-hidden="true">B</span><b>B</b> mute</li>
-        <li><span class="lg lg-pill" aria-hidden="true"></span><b>Menu</b> captions · speed · quality · PiP</li>
-        <li><span class="lg lg-pill" aria-hidden="true"></span><b>Full</b> fullscreen</li>
+        <li><span class="lg lg-dpad" aria-hidden="true"></span><b>D-pad</b> ◀ ▶ seek 5 s · ▲ ▼ volume <kbd>WASD</kbd></li>
+        <li><span class="lg lg-a" aria-hidden="true">A</span><b>A</b> play · pause <kbd>X</kbd></li>
+        <li><span class="lg lg-b" aria-hidden="true">B</span><b>B</b> mute <kbd>Z</kbd></li>
+        <li><span class="lg lg-pill" aria-hidden="true"></span><b>Menu</b> captions · speed · quality · motion · PiP <kbd>Shift</kbd></li>
+        <li><span class="lg lg-pill" aria-hidden="true"></span><b>Full</b> fullscreen <kbd>Enter</kbd></li>
         <li><span class="lg lg-grille" aria-hidden="true"></span><b>Grille</b> volume</li>
       </ul>
 
@@ -65,7 +65,7 @@
           <label class="chip"><input type="radio" name="hero-theme" value="classic" /><span class="sw" style="--a:#A3184F;--b:#8BAC0F;--c:#C9C5BE" aria-hidden="true"></span>Classic</label>
           <label class="chip"><input type="radio" name="hero-theme" value="night" /><span class="sw" style="--a:#4FC8F5;--b:#144A6C;--c:#2A2B32" aria-hidden="true"></span>Night</label>
         </fieldset>
-        <p id="theme-note" class="credit">Film: <cite>Tears of Steel</cite>, © Blender Foundation, <a href="https://mango.blender.org">mango.blender.org</a>, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Streamed from Mux at 1080p.</p>
+        <p id="theme-note" class="credit">Film: a two-minute cut (4:50 to 6:50) of <cite>Tears of Steel</cite>, © Blender Foundation, <a href="https://mango.blender.org">mango.blender.org</a>, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>. Streamed from Mux at up to 1080p, clipped from the full asset.</p>
       </div>
     </section>
 
@@ -96,13 +96,13 @@
         </div>
         <ol class="parts">
           <li><b>Power LED</b><span>Lit while it plays, low when stopped, blinking while it buffers, red on error.</span></li>
-          <li><b>D-pad</b><span>Left and right seek 5 seconds. Up and down move the volume one slot. Hold to repeat. A press anywhere in its circle counts, by angle, like a real pad.</span></li>
+          <li><b>D-pad</b><span>Left and right (A, D) seek 5 seconds. Up and down (W, S) move the volume one slot. Hold to repeat. A press anywhere in its circle counts, by angle, like a real pad.</span></li>
           <li><b>Seek strip</b><span>A cartridge rides a segmented groove. Hover for a dot-matrix preview from the Mux storyboard.</span></li>
-          <li><b>Select · Menu</b><span>Opens a handheld menu window: captions, speed, quality, audio track and picture in picture. Arrow keys move the cursor, Enter picks, Escape backs out. Rows the source can’t offer stay hidden.</span></li>
+          <li><b>Select · Menu</b><span>Opens a handheld menu window: captions, speed, quality, audio track, motion and picture in picture. Arrow keys move the cursor, Enter picks, Escape backs out. Rows the source can’t offer stay hidden.</span></li>
           <li><b>Start · Full</b><span>Fullscreen. The console floats over the film, then steps away to a single line.</span></li>
           <li><b>B</b><span>Mute. Its face shows the speaker or the muted speaker.</span></li>
           <li><b>A</b><span>Play, pause, replay. The face changes with the state.</span></li>
-          <li><b>Speaker grille</b><span>The volume slider. Six slots, each lit from the bottom. Drag, click, scroll or use the arrow keys.</span></li>
+          <li><b>Speaker grille</b><span>The volume slider. Six slots, each lit from the bottom. Drag, click, scroll, or W and S.</span></li>
         </ol>
       </figure>
     </section>
@@ -175,17 +175,17 @@
     <section class="sec" id="keys" aria-labelledby="keys-title">
       <p class="num">06 · Keyboard</p>
       <h2 id="keys-title">Every key works, with the player focused.</h2>
+      <p class="intro">Laid out like a handheld emulator, so it is already in a gamer’s fingers. On this page the keys work anywhere: no need to click the player first.</p>
       <dl class="keymap">
-        <div><dt><kbd>Space</kbd><kbd>K</kbd></dt><dd>Play or pause</dd></div>
-        <div><dt><kbd>←</kbd><kbd>→</kbd></dt><dd>Seek 5 seconds</dd></div>
+        <div><dt><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></dt><dd>D-pad: <b>A</b>/<b>D</b> seek 5 s, <b>W</b>/<b>S</b> volume. Arrow keys too.</dd></div>
+        <div><dt><kbd>X</kbd></dt><dd>The <b>A</b> key: play, pause, replay. Space and K too.</dd></div>
+        <div><dt><kbd>Z</kbd></dt><dd>The <b>B</b> key: mute. M too.</dd></div>
+        <div><dt><kbd>Enter</kbd></dt><dd><b>Start</b>: fullscreen. F too.</dd></div>
+        <div><dt><kbd>Shift</kbd></dt><dd><b>Select</b>: the menu. Arrows move, Enter picks, Esc backs out.</dd></div>
         <div><dt><kbd>J</kbd><kbd>L</kbd></dt><dd>Seek 10 seconds</dd></div>
-        <div><dt><kbd>↑</kbd><kbd>↓</kbd></dt><dd>Volume, one grille slot</dd></div>
         <div><dt><kbd>0</kbd>–<kbd>9</kbd></dt><dd>Jump to 0–90%</dd></div>
         <div><dt><kbd>Home</kbd><kbd>End</kbd></dt><dd>Start or end</dd></div>
-        <div><dt><kbd>M</kbd></dt><dd>Mute</dd></div>
-        <div><dt><kbd>C</kbd></dt><dd>Captions</dd></div>
-        <div><dt><kbd>S</kbd></dt><dd>Menu. Arrows move, Enter picks, Esc backs out.</dd></div>
-        <div><dt><kbd>F</kbd></dt><dd>Fullscreen</dd></div>
+        <div><dt><kbd>C</kbd></dt><dd>Captions on or off</dd></div>
         <div><dt><kbd>Tab</kbd></dt><dd>Next control. The D-pad is one stop; arrows move between its arms.</dd></div>
       </dl>
     </section>
@@ -199,7 +199,7 @@
         <li><b>3 px</b><span>Focus ring on every control, offset from the key so it reads on any shell colour.</span></li>
         <li><b>Names</b><span>Every key is a Video.js button with its own name and shortcut. The LCD is drawn for the eyes and hidden from screen readers; the status announcer speaks play, pause, seek and volume changes.</span></li>
         <li><b>Captions</b><span>Set in the system sans on dark plates, never in the pixel font, sized to the player.</span></li>
-        <li><b>Motion</b><span>With reduced motion, the pause screen appears without the mosaic, nothing blinks, and the logo does not drop.</span></li>
+        <li><b>Motion</b><span>Menu › Motion: Auto follows the system’s reduced-motion setting; Full and Reduced override it and are remembered. Reduced drops the mosaic, the blinking and the logo drop.</span></li>
         <li><b>Contrast</b><span id="contrast-note">Labels and timecodes reach at least 6.6:1 on their shell, LCD text at least 6.6:1, in all three themes. Key icons reach at least 5.7:1.</span></li>
         <li><b>Forced colours</b><span>In Windows high contrast the handheld redraws itself in system colours, with outlined keys and a Highlight seek fill.</span></li>
         <li><b>Targets</b><span>A, B and the system keys are 40 px or more. The D-pad reads a press anywhere in its 90 px circle, so each arm is a quarter of it. The seek strip, grille and menu rows are 38 to 44 px tall.</span></li>

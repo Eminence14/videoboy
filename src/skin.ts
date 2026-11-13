@@ -13,6 +13,8 @@
  *   data-theme   tangerine (default) | classic | night
  *   poster-time  seconds; the start screen shows this frame in dot-matrix
  *   no-chime     turns off the start chime
+ *   keyboard     "page": the player's keys work anywhere on the page, not only when it has focus
+ *   poster       an image URL for the dot-matrix start screen
  * Any --vb-* custom property can be overridden from the page (see README).
  */
 import '@videojs/html/video/player';
@@ -29,6 +31,7 @@ import '@videojs/html/ui/menu-item';
 import '@videojs/html/ui/menu-item-indicator';
 import '@videojs/html/ui/menu-radio-item';
 import '@videojs/html/ui/menu-separator';
+import '@videojs/html/ui/menu-radio-group';
 import '@videojs/html/ui/captions-radio-group';
 import '@videojs/html/ui/playback-rate-radio-group';
 import '@videojs/html/ui/quality-radio-group';
@@ -69,6 +72,39 @@ const T = (token: string, text: string) => `<media-text token="videoboy.${token}
 function key(icons: string) {
   return `<span class="vb-key-face" aria-hidden="true"><span class="vb-key-icons">${icons}</span></span>`;
 }
+
+/*
+ * Keys follow handheld emulators: the D-pad on arrows and WASD, A on X, B on Z,
+ * Start on Enter, Select on Shift. The usual web-player keys work as well.
+ */
+const HOTKEYS: [string, string, string?][] = [
+  ['Space', 'togglePaused'],
+  ['k', 'togglePaused'],
+  ['x', 'togglePaused'],
+  ['m', 'toggleMuted'],
+  ['z', 'toggleMuted'],
+  ['f', 'toggleFullscreen'],
+  ['c', 'toggleSubtitles'],
+  ['ArrowLeft', 'seekStep', '-5'],
+  ['a', 'seekStep', '-5'],
+  ['ArrowRight', 'seekStep', '5'],
+  ['d', 'seekStep', '5'],
+  ['j', 'seekStep', '-10'],
+  ['l', 'seekStep', '10'],
+  ['ArrowUp', 'volumeStep', '0.16667'],
+  ['w', 'volumeStep', '0.16667'],
+  ['ArrowDown', 'volumeStep', '-0.16667'],
+  ['s', 'volumeStep', '-0.16667'],
+  ['0-9', 'seekToPercent'],
+  ['Home', 'seekToPercent', '0'],
+  ['End', 'seekToPercent', '100'],
+];
+/** Which console part a key presses, for the visible press on the handheld. */
+const PRESS: Record<string, string> = {
+  arrowup: 'up', w: 'up', arrowdown: 'down', s: 'down', arrowleft: 'left', a: 'left', arrowright: 'right', d: 'right',
+  ' ': '.vb-a', k: '.vb-a', x: '.vb-a', m: '.vb-b', z: '.vb-b', f: '.vb-fs', enter: '.vb-fs', shift: '.vb-menu-btn',
+};
+const MOTION_KEY = 'videoboy.motion';
 
 /** One row of the root menu that opens a page of choices, with the page itself. */
 function menuPage(id: string, key: string, label: string, group: string) {
@@ -117,7 +153,7 @@ function template(id: string) {
       <span class="vb-start-logo">VIDEOBOY</span>
       <span class="vb-start-title vb-when-start">${T('pressStart', 'Press start')}</span>
       <span class="vb-start-title vb-when-end">${T('theEnd', 'The end')}</span>
-      <span class="vb-start-hint"><span class="vb-when-start">A &middot; Space &middot; Tap</span><span class="vb-when-end">A to play again</span></span>
+      <span class="vb-start-hint"><span class="vb-when-start">X &middot; Space &middot; Tap</span><span class="vb-when-end">A or X to play again</span></span>
     </span>
     <div class="vb-window vb-pause-window" aria-hidden="true">${T('paused', 'Pause')}</div>
     <media-buffering-indicator class="vb-loading"><span class="vb-loading-dots" aria-hidden="true"><i></i><i></i><i></i></span></media-buffering-indicator>
@@ -156,16 +192,41 @@ function template(id: string) {
 
         <div class="vb-sys">
           <span class="vb-sys-slot">
-            <button type="button" class="vb-pill vb-menu-btn" id="${mb}" commandfor="${menu}" aria-label="Menu" aria-keyshortcuts="s"><span class="vb-pill-cap" aria-hidden="true"></span></button>
+            <button type="button" class="vb-pill vb-menu-btn" id="${mb}" commandfor="${menu}" aria-label="Menu" aria-keyshortcuts="Shift"><span class="vb-pill-cap" aria-hidden="true"></span></button>
             <span class="vb-label" aria-hidden="true">${T('menu', 'Menu')}</span>
           </span>
-          <media-tooltip trigger="${mb}" side="top" class="vb-tip"><media-text token="videoboy.menuTip">Menu</media-text><span class="vb-tip-key">S</span></media-tooltip>
+          <media-tooltip trigger="${mb}" side="top" class="vb-tip"><media-text token="videoboy.menuTip">Menu</media-text><span class="vb-tip-key">Shift</span></media-tooltip>
           <media-menu id="${menu}" side="top" align="center" class="vb-menu">
             <media-menu-content class="vb-menu-page vb-menu-root" aria-label="Player menu">
               ${menuPage(id, 'captions', 'Captions', 'media-captions-radio-group')}
               ${menuPage(id, 'speed', 'Speed', 'media-playback-rate-radio-group')}
               ${menuPage(id, 'quality', 'Quality', 'media-quality-radio-group')}
               ${menuPage(id, 'audio', 'Audio', 'media-audio-track-radio-group')}
+              <media-menu-item commandfor="${id}-m-motion" class="vb-menu-row vb-menu-motion">
+                <span class="vb-menu-cursor" aria-hidden="true"></span>
+                <span class="vb-menu-label">${T('motion', 'Motion')}</span>
+                <span class="vb-menu-hint"><span class="vb-menu-value vb-motion-value">Auto</span><span class="vb-menu-arrow" aria-hidden="true"></span></span>
+              </media-menu-item>
+              <media-menu-content class="vb-menu-page" id="${id}-m-motion" aria-label="Motion">
+                <media-menu-item class="vb-menu-row vb-menu-back">
+                  <span class="vb-menu-cursor" aria-hidden="true"></span>
+                  <span class="vb-menu-back-arrow" aria-hidden="true"></span>
+                  <span class="vb-menu-label">${T('motion', 'Motion')}</span>
+                </media-menu-item>
+                <media-menu-separator class="vb-menu-sep"></media-menu-separator>
+                <media-menu-radio-group class="vb-menu-group vb-motion-group" value="auto" aria-label="Motion">
+                  ${[['auto', 'Auto', 'System'], ['full', 'Full', ''], ['reduced', 'Reduced', '']]
+                    .map(
+                      ([v, l, badge]) => `<media-menu-radio-item value="${v}" class="vb-menu-row vb-menu-radio">
+                    <span class="vb-menu-cursor" aria-hidden="true"></span>
+                    <span class="vb-menu-label">${T('motion' + l, l)}</span>
+                    <span class="vb-menu-badge">${badge}</span>
+                    <media-menu-item-indicator force-mount class="vb-menu-check"><span aria-hidden="true"></span></media-menu-item-indicator>
+                  </media-menu-radio-item>`
+                    )
+                    .join('')}
+                </media-menu-radio-group>
+              </media-menu-content>
               <media-menu-item class="vb-menu-row vb-menu-pip" data-vb-pip>
                 <span class="vb-menu-cursor" aria-hidden="true"></span>
                 <span class="vb-menu-label"><span class="vb-pip-enter">${T('pip', 'Picture in picture')}</span><span class="vb-pip-exit">${T('pipExit', 'Exit picture in picture')}</span></span>
@@ -216,20 +277,7 @@ function template(id: string) {
     </filter>
   </svg>
 
-  <media-hotkey keys="Space" action="togglePaused"></media-hotkey>
-  <media-hotkey keys="k" action="togglePaused"></media-hotkey>
-  <media-hotkey keys="m" action="toggleMuted"></media-hotkey>
-  <media-hotkey keys="f" action="toggleFullscreen"></media-hotkey>
-  <media-hotkey keys="c" action="toggleSubtitles"></media-hotkey>
-  <media-hotkey keys="ArrowLeft" action="seekStep" value="-5"></media-hotkey>
-  <media-hotkey keys="ArrowRight" action="seekStep" value="5"></media-hotkey>
-  <media-hotkey keys="j" action="seekStep" value="-10"></media-hotkey>
-  <media-hotkey keys="l" action="seekStep" value="10"></media-hotkey>
-  <media-hotkey keys="ArrowUp" action="volumeStep" value="0.16667"></media-hotkey>
-  <media-hotkey keys="ArrowDown" action="volumeStep" value="-0.16667"></media-hotkey>
-  <media-hotkey keys="0-9" action="seekToPercent"></media-hotkey>
-  <media-hotkey keys="Home" action="seekToPercent" value="0"></media-hotkey>
-  <media-hotkey keys="End" action="seekToPercent" value="100"></media-hotkey>
+  ${HOTKEYS.map(([k, action, value]) => `<media-hotkey keys="${k}" action="${action}"${value ? ` value="${value}"` : ''}></media-hotkey>`).join('\n  ')}
   <media-gesture type="tap" action="togglePaused" pointer="mouse" region="center"></media-gesture>
   <media-gesture type="tap" action="toggleControls" pointer="touch"></media-gesture>
   <media-gesture type="doubletap" action="seekStep" value="-10" region="left" pointer="touch"></media-gesture>
@@ -273,6 +321,28 @@ function syncFilter(container: HTMLElement) {
   container.querySelectorAll('.vb-lcdf-map > *').forEach((f, ch) => f.setAttribute('tableValues', rgb.map((c) => c[ch]).join(' ')));
 }
 
+function clipStoryboard(container: HTMLElement) {
+  const media = container.querySelector(':scope > [src*="stream.mux.com"]');
+  const track = media?.querySelector<HTMLTrackElement>('track[data-storyboard]');
+  if (!media || !track) return;
+  let src: URL, sb: URL;
+  try {
+    src = new URL(media.getAttribute('src')!);
+    sb = new URL(track.getAttribute('src')!, location.href);
+  } catch {
+    return;
+  }
+  let changed = false;
+  for (const k of ['asset_start_time', 'asset_end_time']) {
+    const v = src.searchParams.get(k);
+    if (v != null && sb.searchParams.get(k) !== v) {
+      sb.searchParams.set(k, v);
+      changed = true;
+    }
+  }
+  if (changed) track.setAttribute('src', sb.toString());
+}
+
 class VideoboySkinElement extends HTMLElement {
   #rendered = false;
   #chimed = false;
@@ -299,6 +369,10 @@ class VideoboySkinElement extends HTMLElement {
     container.style.setProperty('--vb-lcd-filter', `url(#${id}-lcdf)`);
     const media = Array.from(this.childNodes);
     container.innerHTML = template(id);
+    try {
+      const m = localStorage.getItem(MOTION_KEY) || 'auto';
+      container.toggleAttribute('data-reduce-motion', m === 'reduced' || (m === 'auto' && matchMedia('(prefers-reduced-motion: reduce)').matches));
+    } catch {}
     container.prepend(...media);
     this.append(container);
     requestAnimationFrame(() => syncFilter(container));
@@ -311,12 +385,17 @@ class VideoboySkinElement extends HTMLElement {
         for (const r of records) for (const n of r.addedNodes) if (n !== container && n instanceof Element) container.prepend(n);
       });
       media.observe(this, { childList: true });
+      // A Mux instant clip (asset_start_time / asset_end_time on the stream URL) gets a storyboard clipped
+      // the same way, so seek previews show the cut, not the whole film.
+      const clip = new MutationObserver(() => clipStoryboard(container));
+      clip.observe(container, { subtree: true, childList: true, attributes: true, attributeFilter: ['src'] });
+      clipStoryboard(container);
       const lcd = new MutationObserver(() => {
         const end = container.getAttribute('data-lcd') === 'end';
         start.setAttribute('aria-label', end ? 'The end. Play again' : 'Press start: play video');
       });
       lcd.observe(container, { attributes: true, attributeFilter: ['data-lcd'] });
-      this.#observers = [themes, media, lcd];
+      this.#observers = [themes, media, clip, lcd];
     };
 
     // The start and end screens are one big button. Its name says what the screen says.
@@ -328,15 +407,89 @@ class VideoboySkinElement extends HTMLElement {
       if (p && typeof p.catch === 'function') p.catch(() => {});
     });
 
-    // S opens the menu, like Select on the handheld. Ignored while typing or with modifiers.
+    // Select (Shift on its own) opens the menu; Start (Enter, away from a control) is fullscreen.
     const menuBtn = container.querySelector<HTMLButtonElement>('.vb-menu-btn')!;
-    container.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() !== 's' || e.ctrlKey || e.metaKey || e.altKey || e.repeat) return;
+    const fsBtn = container.querySelector<HTMLElement>('.vb-fs')!;
+    const dpad = container.querySelector('vb-dpad') as (HTMLElement & { flash?: (d: string) => void }) | null;
+    let shiftAlone = false;
+    const press = (key: string) => {
+      const what = PRESS[key];
+      if (!what) return;
+      if (!what.startsWith('.')) return dpad?.flash?.(what);
+      const el = container.querySelector<HTMLElement>(what);
+      if (!el) return;
+      el.setAttribute('data-kbd-press', '');
+      window.setTimeout(() => el.removeAttribute('data-kbd-press'), 140);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      const key = e.key.toLowerCase();
       const t = e.target as HTMLElement;
-      if (t.closest('input, textarea, [contenteditable], media-menu')) return;
-      e.preventDefault();
-      menuBtn.click();
+      if (key === 'shift') {
+        shiftAlone = !e.repeat;
+        return;
+      }
+      shiftAlone = false;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (t.closest?.('input, textarea, select, [contenteditable]')) return;
+      if (key === 'enter' && !t.closest?.('button, a, [role^="menuitem"], [role="slider"], media-play-button, media-mute-button, media-fullscreen-button')) {
+        e.preventDefault();
+        fsBtn.click();
+      }
+      if (!t.closest?.('media-menu')) press(key);
+    };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.key === 'Shift' && shiftAlone) {
+        shiftAlone = false;
+        if ((e.target as HTMLElement).closest?.('input, textarea, select, [contenteditable]')) return;
+        press('shift');
+        menuBtn.click();
+      }
+    };
+    container.addEventListener('keydown', onKey);
+    container.addEventListener('keyup', onKeyUp);
+
+    // keyboard="page": keys work anywhere on the page, not only with the player focused.
+    // Keys pressed in a field, on a page control, or inside another player are left alone.
+    const KEYS = new Set([' ', 'k', 'x', 'm', 'z', 'f', 'c', 'a', 'd', 'w', 's', 'j', 'l', 'enter', 'shift', 'home', 'end', 'arrowleft', 'arrowright', 'arrowup', 'arrowdown', ...'0123456789']);
+    const forward = (e: KeyboardEvent) => {
+      if (this.getAttribute('keyboard') !== 'page' || e.defaultPrevented || !container.isConnected) return;
+      const t = e.target as HTMLElement;
+      if (t !== document.body && t !== document.documentElement) return;
+      if (!KEYS.has(e.key.toLowerCase()) || e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.type === 'keydown' && e.key !== 'Shift') e.preventDefault(); // Space would scroll the page
+      container.dispatchEvent(new KeyboardEvent(e.type, { key: e.key, code: e.code, shiftKey: e.shiftKey, repeat: e.repeat, bubbles: true, cancelable: true }));
+    };
+    document.addEventListener('keydown', forward);
+    document.addEventListener('keyup', forward);
+
+    // Motion: Auto follows the system setting; Full and Reduced override it, remembered per browser.
+    const motionGroup = container.querySelector<HTMLElement & { value: string }>('.vb-motion-group')!;
+    const motionValue = container.querySelector<HTMLElement>('.vb-motion-value')!;
+    const mq = matchMedia('(prefers-reduced-motion: reduce)');
+    const readMotion = () => {
+      try {
+        return localStorage.getItem(MOTION_KEY) || 'auto';
+      } catch {
+        return 'auto';
+      }
+    };
+    const applyMotion = (mode: string) => {
+      const reduce = mode === 'reduced' || (mode === 'auto' && mq.matches);
+      container.toggleAttribute('data-reduce-motion', reduce);
+      container.setAttribute('data-motion', mode);
+      motionValue.textContent = mode === 'auto' ? 'Auto' : mode === 'full' ? 'Full' : 'Reduced';
+      if (motionGroup.value !== mode) motionGroup.value = mode;
+    };
+    applyMotion(readMotion());
+    motionGroup.addEventListener('value-change', () => {
+      const mode = motionGroup.value || 'auto';
+      try {
+        localStorage.setItem(MOTION_KEY, mode);
+      } catch {}
+      applyMotion(mode);
     });
+    const onMq = () => applyMotion(readMotion());
+    mq.addEventListener('change', onMq);
 
     // Picture in picture, as a menu row. Hidden where the browser or the media can't do it.
     const pip = container.querySelector<HTMLElement>('[data-vb-pip]')!;
@@ -363,12 +516,18 @@ class VideoboySkinElement extends HTMLElement {
     this.#cleanup = () => {
       document.removeEventListener('enterpictureinpicture', syncPip, true);
       document.removeEventListener('leavepictureinpicture', syncPip, true);
+      document.removeEventListener('keydown', forward);
+      document.removeEventListener('keyup', forward);
+      mq.removeEventListener('change', onMq);
     };
     const observeOnly = this.#observe!;
     this.#observe = () => {
       observeOnly();
       document.addEventListener('enterpictureinpicture', syncPip, true);
       document.addEventListener('leavepictureinpicture', syncPip, true);
+      document.addEventListener('keydown', forward);
+      document.addEventListener('keyup', forward);
+      mq.addEventListener('change', onMq);
     };
     window.setTimeout(syncPip, 0);
 
