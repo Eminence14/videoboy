@@ -21,7 +21,7 @@ import '@videojs/html/media/mux-video';
 ```html
 <video-player>
   <videoboy-skin data-theme="tangerine" poster-time="36">
-    <mux-video playback-id="YOUR_PLAYBACK_ID" playsinline crossorigin="anonymous"></mux-video>
+    <mux-video src="https://stream.mux.com/YOUR_PLAYBACK_ID.m3u8" playsinline crossorigin="anonymous"></mux-video>
   </videoboy-skin>
 </video-player>
 ```

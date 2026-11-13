@@ -247,11 +247,38 @@ export class LcdElement extends HTMLElement {
     return this.#hasFrame;
   }
 
-  #captureAndDraw() {
+  #captureAndDraw(tries = 6) {
     if (this.#mode === 'play' || this.#mode === 'error') return;
-    this.#capture();
-    cancelAnimationFrame(this.#anim);
-    this.#redraw();
+    const v = this.#video;
+    const run = () => {
+      if (this.#mode === 'play' || this.#mode === 'error') return;
+      this.#capture();
+      // Streams can report a seek before the new frame is decoded; a near-black read is retried.
+      if (this.#hasFrame && tries > 0 && this.#isBlank()) {
+        window.setTimeout(() => this.#captureAndDraw(tries - 1), 250);
+      }
+      cancelAnimationFrame(this.#anim);
+      this.#anim = 0;
+      this.#redraw();
+    };
+    const rvfc = (v as any)?.requestVideoFrameCallback;
+    if (v && typeof rvfc === 'function' && !v.paused) rvfc.call(v, run);
+    else if (v && typeof rvfc === 'function') {
+      let done = false;
+      rvfc.call(v, () => { done = true; run(); });
+      window.setTimeout(() => !done && run(), 120);
+    } else run();
+  }
+
+  #isBlank() {
+    try {
+      const d = this.#srcCtx.getImageData(0, 0, this.#src.width, this.#src.height).data;
+      let s = 0;
+      for (let i = 0; i < d.length; i += 64) s += d[i] + d[i + 1] + d[i + 2];
+      return s / (d.length / 64) / 3 < 6;
+    } catch {
+      return false;
+    }
   }
 
   /* ---------------------------------------------------------------- drawing */

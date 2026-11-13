@@ -5,7 +5,7 @@
  * Usage:
  *   <video-player>
  *     <videoboy-skin data-theme="tangerine" poster-time="58">
- *       <mux-video playback-id="…"></mux-video>   (or <video src="…">)
+ *       <mux-video src="https://stream.mux.com/…m3u8"></mux-video>   (or <video src="…">)
  *     </videoboy-skin>
  *   </video-player>
  *

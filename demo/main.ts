@@ -13,7 +13,8 @@ const skin = document.getElementById('skin')!;
 function heroMedia() {
   if (!local && MUX_ID) {
     const m = document.createElement('mux-video');
-    m.setAttribute('playback-id', MUX_ID);
+    // <mux-video> reads a Mux stream URL; the playback ID is taken from it.
+    m.setAttribute('src', `https://stream.mux.com/${MUX_ID}.m3u8`);
     m.setAttribute('playsinline', '');
     m.setAttribute('crossorigin', 'anonymous');
     m.setAttribute('preload', 'auto');

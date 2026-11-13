@@ -321,7 +321,7 @@ media-container.videoboy {
 .videoboy[data-booted][data-lcd='start'] .vb-start-window,
 .videoboy[data-lcd='end'] .vb-start-window { display: grid; }
 .vb-start-window { font-family: var(--vb-font-lcd); color: var(--vb-lcd-0); background: var(--vb-lcd-3); border: 3px solid var(--vb-lcd-0); box-shadow: inset 0 0 0 2px var(--vb-lcd-3), inset 0 0 0 4px var(--vb-lcd-1), 0 0 0 3px var(--vb-lcd-3), 6px 6px 0 3px rgb(0 0 0 / 0.22); text-transform: uppercase; }
-.vb-start-title { font-size: clamp(8px, 1.6cqw, 16px); letter-spacing: 0.08em; animation: vb-blink 1.1s steps(1) infinite; }
+.vb-start-title { font-size: clamp(8px, 1.6cqw, 16px); letter-spacing: 0.08em; animation: vb-pulse 1.1s steps(1) infinite; }
 .vb-start-hint { font-size: 8px; color: var(--vb-lcd-0); letter-spacing: 0.1em; }
 .videoboy[data-lcd='end'] .vb-start-logo { display: none; }
 .videoboy[data-lcd='end'] .vb-start-title { font-size: clamp(12px, 2.6cqw, 28px); animation: none; }
@@ -877,6 +877,7 @@ media-container.videoboy:fullscreen:has(.vb-controls:not([data-visible])) { curs
 
 /* ================================================================ motion, contrast, forced colours */
 @keyframes vb-blink { 50% { opacity: 0; } }
+@keyframes vb-pulse { 50% { color: var(--vb-lcd-2); } }
 @keyframes vb-dots { 0% { opacity: 1; } 33% { opacity: 0.25; } 66% { opacity: 0.25; } }
 @keyframes vb-drop { from { translate: 0 calc(-50cqh - 1em); } to { translate: 0 0; } }
 
