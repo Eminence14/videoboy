@@ -36,13 +36,44 @@ function heroMedia() {
 }
 skin.prepend(heroMedia());
 
-document.querySelectorAll<HTMLInputElement>('input[name="hero-theme"]').forEach((i) =>
-  i.addEventListener('change', () => {
-    if (!i.checked) return;
-    if (i.value === 'tangerine') delete skin.dataset.theme;
-    else skin.dataset.theme = i.value;
-  })
-);
+/* ---------------------------------------------------------------- theme: the hero player and the whole page change together */
+type Theme = 'tangerine' | 'classic' | 'night';
+const THEME_KEY = 'videoboy.theme';
+const PAGE_BG: Record<Theme, string> = { tangerine: '#F4ECDF', classic: '#E2E0DA', night: '#0F1016' };
+const savedTheme = (): Theme => {
+  try {
+    const t = localStorage.getItem(THEME_KEY);
+    if (t === 'classic' || t === 'night') return t;
+  } catch {}
+  return 'tangerine';
+};
+let theme: Theme = savedTheme();
+function setTheme(t: Theme, opts: { fade?: boolean; save?: boolean } = {}) {
+  theme = t;
+  const root = document.documentElement;
+  if (opts.fade) {
+    root.classList.add('theme-fade');
+    clearTimeout((setTheme as any).t);
+    (setTheme as any).t = setTimeout(() => root.classList.remove('theme-fade'), 500);
+  }
+  if (t === 'tangerine') { delete root.dataset.pageTheme; delete skin.dataset.theme; }
+  else { root.dataset.pageTheme = t; skin.dataset.theme = t; }
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', PAGE_BG[t]);
+  for (const i of document.querySelectorAll<HTMLInputElement>('input[name="hero-theme"], input[name="page-theme"]')) i.checked = i.value === t;
+  // Screenshots follow the theme too: each state was captured from the player in all three.
+  for (const img of document.querySelectorAll<HTMLImageElement>('img[data-themed]')) img.src = img.dataset.themed!.replace('{t}', t);
+  for (const b of document.querySelectorAll<HTMLButtonElement>('button[data-themed]')) b.dataset.full = b.dataset.themed!.replace('{t}', t);
+  const it = document.getElementById('install-theme');
+  if (it) it.textContent = t;
+  if (opts.save) try { localStorage.setItem(THEME_KEY, t); } catch {}
+  // The playground starts from the page's theme; its own radios can still pick another.
+  const lab = document.querySelector<HTMLInputElement>(`input[name="theme"][value="${t}"]`);
+  if (lab && !lab.checked) { lab.checked = true; lab.dispatchEvent(new Event('input', { bubbles: true })); }
+}
+document.addEventListener('change', (e) => {
+  const i = e.target as HTMLInputElement;
+  if ((i.name === 'hero-theme' || i.name === 'page-theme') && i.checked) setTheme(i.value as Theme, { fade: true, save: true });
+});
 
 /* ---------------------------------------------------------------- gallery, captured from the real player */
 const STATES: [string, string, string][] = [
@@ -65,7 +96,7 @@ const STATES: [string, string, string][] = [
 const gallery = document.getElementById('gallery');
 if (gallery) {
   gallery.innerHTML = STATES.map(
-    ([id, name, text], i) => `<li><figure><button type="button" class="shot" data-full="/states/tangerine-720-${id}.webp" aria-label="Enlarge: ${name}"><img src="/states/tangerine-720-${id}.webp" alt="" loading="lazy" decoding="async"></button><figcaption><span class="idx">${String(i + 1).padStart(2, '0')}</span><b>${name}</b> ${text}</figcaption></figure></li>`
+    ([id, name, text], i) => `<li><figure><button type="button" class="shot" data-themed="/states/{t}-720-${id}.webp" data-full="/states/${theme}-720-${id}.webp" aria-label="Enlarge: ${name}"><img data-themed="/states/{t}-720-${id}.webp" src="/states/${theme}-720-${id}.webp" alt="" loading="lazy" decoding="async"></button><figcaption><span class="idx">${String(i + 1).padStart(2, '0')}</span><b>${name}</b> ${text}</figcaption></figure></li>`
   ).join('');
 }
 
@@ -94,7 +125,7 @@ const SIZES: [string, string, string][] = [
 const sizes = document.getElementById('sizes-list');
 if (sizes) {
   sizes.innerHTML = SIZES.map(
-    ([w, name, text]) => `<li style="--w:${w}"><figure><img src="/states/size-${w}.webp" alt="VIDEOBOY at ${w} pixels wide" loading="lazy" decoding="async"><figcaption><b>${name}</b> ${text}</figcaption></figure></li>`
+    ([w, name, text]) => `<li style="--w:${w}"><figure><img data-themed="/states/{t}-size-${w}.webp" src="/states/${theme}-size-${w}.webp" alt="VIDEOBOY at ${w} pixels wide" loading="lazy" decoding="async"><figcaption><b>${name}</b> ${text}</figcaption></figure></li>`
   ).join('');
 }
 
@@ -180,3 +211,6 @@ document.getElementById('accent-reset')!.addEventListener('click', () => {
   applyLab();
 });
 applyLab();
+
+// Apply the saved theme once the gallery and sizes are in place.
+setTheme(theme);

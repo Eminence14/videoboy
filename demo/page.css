@@ -1,4 +1,5 @@
 /* VIDEOBOY showcase page. Copyright 2026 Victor Ibidunmoye. Apache-2.0. */
+/* The page wears the same theme as the hero player: html[data-page-theme] mirrors videoboy-skin[data-theme]. */
 :root {
   color-scheme: light;
   --paper: #F4ECDF;
@@ -6,14 +7,71 @@
   --card: #FBF6EE;
   --ink: #2A190D;
   --ink-2: #5E4330;
+  --ink-hover: #000;
   --rule: #D9C8AE;
   --tan: #F26A1B;
   --tan-ink: #A8420A;
   --code: #24180F;
+  --code-ink: #F3E3CC;
+  --code-c: #A88E74;
+  --code-k: #FF9A57;
+  --code-s: #C9E39B;
+  --shadow: 60 30 10;
+  --hi: rgb(255 255 255 / 0.6);
+  /* legend glyphs, matched to the player's keys */
+  --k-hi: #FF9A57; --k: #F26A1B; --k-lo: #B4440B; --k-ink: #2A1206;
+  --cross: #2B231E; --pill: #8A6E50;
   --max: 1180px;
   --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --pixel: 'VB Press Start', ui-monospace, monospace;
   --label: 'VB Silkscreen', ui-monospace, monospace;
+}
+:root[data-page-theme='classic'] {
+  --paper: #E2E0DA;
+  --paper-2: #D2CFC7;
+  --card: #EFEEEA;
+  --ink: #1B1D50;
+  --ink-2: #3F4170;
+  --ink-hover: #0B0C2A;
+  --rule: #BDB9AF;
+  --tan: #A3184F;
+  --tan-ink: #8A1243;
+  --code: #1A1B38;
+  --code-ink: #E6E5F2;
+  --code-c: #9C9DBB;
+  --code-k: #FF8DB8;
+  --code-s: #B5D334;
+  --shadow: 30 30 60;
+  --k-hi: #D24A7E; --k: #A3184F; --k-lo: #6B0C33; --k-ink: #FBEAF1;
+  --cross: #232327; --pill: #7D7B87;
+}
+:root[data-page-theme='night'] {
+  color-scheme: dark;
+  --paper: #0F1016;
+  --paper-2: #1C1E28;
+  --card: #171921;
+  --ink: #E8EAF2;
+  --ink-2: #A9AEBF;
+  --ink-hover: #FFFFFF;
+  --rule: #2D303C;
+  --tan: #4FC8F5;
+  --tan-ink: #7FD8FA;
+  --code: #07080C;
+  --code-ink: #DCE6F2;
+  --code-c: #7E859A;
+  --code-k: #6FD6FF;
+  --code-s: #B9A7FF;
+  --shadow: 0 0 0;
+  --hi: rgb(255 255 255 / 0.05);
+  --k-hi: #9BE6FF; --k: #4FC8F5; --k-lo: #1C86B0; --k-ink: #04202C;
+  --cross: #8E93A5; --pill: #6E7181;
+}
+/* A short cross-fade while the theme changes; none when motion is reduced. */
+:root.theme-fade, :root.theme-fade *, :root.theme-fade *::before, :root.theme-fade *::after {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, fill 0.45s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root.theme-fade, :root.theme-fade *, :root.theme-fade *::before, :root.theme-fade *::after { transition: none !important; }
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 76px; }
@@ -112,12 +170,12 @@ figcaption { margin-top: 12px; font-size: 15px; color: var(--ink-2); line-height
 figcaption b { color: var(--ink); }
 
 .trio { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-.trio img, .gallery img, .sizes img { border-radius: 10px 10px 22px 10px; box-shadow: 0 1px 0 rgb(255 255 255 / 0.6), 0 14px 30px -18px rgb(60 30 10 / 0.5); }
+.trio img, .gallery img, .sizes img { border-radius: 10px 10px 22px 10px; box-shadow: 0 1px 0 var(--hi), 0 14px 30px -18px rgb(var(--shadow) / 0.5); }
 
 /* ---------------------------------------------------------------- anatomy */
 .anatomy { display: grid; gap: 32px; }
 .anatomy-art { position: relative; }
-.anatomy-art img { width: 100%; border-radius: 12px 12px 30px 12px; box-shadow: 0 14px 30px -18px rgb(60 30 10 / 0.5); }
+.anatomy-art img { width: 100%; border-radius: 12px 12px 30px 12px; box-shadow: 0 14px 30px -18px rgb(var(--shadow) / 0.5); }
 .pins { list-style: none; margin: 0; padding: 0; }
 .pins li {
   position: absolute;
@@ -185,18 +243,18 @@ figcaption b { color: var(--ink); }
   padding: 18px 20px;
   border-radius: 12px;
   background: var(--code);
-  color: #F3E3CC;
+  color: var(--code-ink);
   font-size: 14px;
   line-height: 1.65;
   overflow-x: auto;
   tab-size: 2;
 }
-.code .c { color: #A88E74; }
-.code .k { color: #FF9A57; }
-.code .s { color: #C9E39B; }
+.code .c { color: var(--code-c); }
+.code .k { color: var(--code-k); }
+.code .s { color: var(--code-s); }
 p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-2); font-size: 0.9em; }
 .btn { display: inline-flex; align-items: center; min-height: 44px; margin-right: 12px; padding: 0 18px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font: 700 12px var(--label); letter-spacing: 0.14em; text-transform: uppercase; }
-.btn:hover { background: #000; }
+.btn:hover { background: var(--ink-hover); }
 
 /* ---------------------------------------------------------------- sizes */
 .sizes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 32px 28px; }
@@ -230,12 +288,25 @@ p code, li code { padding: 1px 5px; border-radius: 4px; background: var(--paper-
 .legend li { display: inline-flex; align-items: center; gap: 8px; }
 .legend b { color: var(--ink); }
 .lg { display: inline-grid; place-items: center; flex: none; }
-.lg-dpad { width: 18px; height: 18px; background: linear-gradient(#2B231E, #2B231E) center / 6px 18px no-repeat, linear-gradient(#2B231E, #2B231E) center / 18px 6px no-repeat; }
-.lg-a, .lg-b { width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 36% 30%, #FF9A57, #F26A1B 50%, #B4440B); color: #2A1206; font: 7px var(--pixel); }
-.lg-pill { width: 22px; height: 8px; border-radius: 999px; background: #8A6E50; rotate: -24deg; }
-.lg-grille { width: 20px; height: 14px; background: repeating-linear-gradient(66deg, #F26A1B 0 3px, transparent 3px 6px); }
+.lg-dpad { width: 18px; height: 18px; background: linear-gradient(var(--cross), var(--cross)) center / 6px 18px no-repeat, linear-gradient(var(--cross), var(--cross)) center / 18px 6px no-repeat; }
+.lg-a, .lg-b { width: 18px; height: 18px; border-radius: 50%; background: radial-gradient(circle at 36% 30%, var(--k-hi), var(--k) 50%, var(--k-lo)); color: var(--k-ink); font: 7px var(--pixel); }
+.lg-pill { width: 22px; height: 8px; border-radius: 999px; background: var(--pill); rotate: -24deg; }
+.lg-grille { width: 20px; height: 14px; background: repeating-linear-gradient(66deg, var(--k) 0 3px, transparent 3px 6px); }
 .btn-ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
 .btn-ghost:hover { background: var(--paper-2); }
 .evidence { margin-top: 20px; }
-.lg-a::after { content: ''; width: 0; height: 0; border-block: 4px solid transparent; border-left: 6px solid #2A1206; margin-left: 2px; }
-.lg-b::after { content: ''; width: 6px; height: 6px; background: #2A1206; clip-path: polygon(0 30%, 40% 30%, 100% 0, 100% 100%, 40% 70%, 0 70%); }
+.lg-a::after { content: ''; width: 0; height: 0; border-block: 4px solid transparent; border-left: 6px solid var(--k-ink); margin-left: 2px; }
+.lg-b::after { content: ''; width: 6px; height: 6px; background: var(--k-ink); clip-path: polygon(0 30%, 40% 30%, 100% 0, 100% 100%, 40% 70%, 0 70%); }
+
+/* ---------------------------------------------------------------- theme switch in the header */
+.theme-switch { display: flex; gap: 6px; margin: 0; padding: 0; border: 0; }
+.theme-switch legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.theme-switch label { position: relative; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; }
+.theme-switch input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.theme-switch .sw { width: 20px; height: 20px; transition: transform 0.15s ease; }
+.theme-switch label:hover .sw { transform: scale(1.1); }
+.theme-switch input:checked + .sw { box-shadow: 0 0 0 2px var(--paper), 0 0 0 4px var(--ink); }
+.theme-switch input:focus-visible + .sw { outline: 3px solid var(--ink); outline-offset: 5px; }
+
+/* Night: a faint screen-glow behind the hero handheld, so the dark console lifts off the dark page. */
+:root[data-page-theme='night'] .hero { background: radial-gradient(60% 45% at 50% 52%, rgb(79 200 245 / 0.09), transparent 70%); }

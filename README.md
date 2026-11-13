@@ -102,7 +102,7 @@ npm run test:a11y   # builds, serves, runs axe-core over every theme, width and 
 
 The script writes `public/a11y-report.json` (every run and rule) and `public/a11y-tree.txt` (the player's accessibility tree, as a screen reader is given it), and fails on any violation. Set `VB_CHROME` to use a Chromium already on the machine.
 
-- 0 axe-core violations across 91 runs: WCAG 2.2 A/AA and best-practice rules, three themes, three widths, ten states (boot, start, playing, paused, menu, submenu, tooltip, muted, ended, error), and the page.
+- 0 axe-core violations across 96 runs: WCAG 2.2 A/AA and best-practice rules, three themes, three widths, ten states (boot, start, playing, paused, menu, submenu, tooltip, muted, ended, error), and the demo page in all three themes at 1440 and 390 px.
 - Labels and timecodes reach at least 6.6:1; key icons at least 5.7:1.
 - Every control is a Video.js component with its own name and shortcut; the status announcer reports changes. The LCD canvas is hidden from assistive tech.
 - Motion: the menu's Motion row offers Auto (follows `prefers-reduced-motion`), Full and Reduced, remembered per browser. Reduced: no mosaic transition, no blinking, no boot drop.

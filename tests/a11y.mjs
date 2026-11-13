@@ -114,12 +114,23 @@ for (const theme of THEMES) {
   }
 }
 
-// The whole page, and the player's accessibility tree while paused with the menu open.
+// The whole page in each theme (the page re-colours with the player), at desktop and phone widths.
+for (const theme of THEMES) {
+  for (const width of [1440, 390]) {
+    const page = await browser.newPage({ viewport: { width, height: 900 } });
+    await page.addInitScript((t) => localStorage.setItem('videoboy.theme', t), theme);
+    await page.goto(base);
+    await page.waitForTimeout(2600);
+    await axe(page, { theme, width: String(width), state: 'page' });
+    await page.close();
+  }
+}
+
+// The player's accessibility tree while paused with the menu open.
 {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(base);
   await page.waitForTimeout(2600);
-  await axe(page, { theme: 'page', width: '1440', state: 'page' });
   await page.click('#skin .vb-start');
   await page.waitForTimeout(1000);
   await page.click('#skin .vb-a');

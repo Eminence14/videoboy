@@ -12,6 +12,10 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect x='1' y='0' width='14' height='16' rx='2' fill='%23EEE0C6'/%3E%3Crect x='3' y='2' width='10' height='7' fill='%2386391A'/%3E%3Crect x='4' y='3' width='8' height='5' fill='%23F9D7A8'/%3E%3Cpath d='M3 12h3M4 11v3' stroke='%232B231E'/%3E%3Crect x='10' y='11' width='2' height='2' fill='%23F26A1B'/%3E%3Crect x='12' y='10' width='2' height='2' fill='%23F26A1B'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://stream.mux.com" crossorigin />
   <link rel="preconnect" href="https://image.mux.com" crossorigin />
+  <script>
+    // Apply the saved theme before first paint, so the page never flashes the wrong colours.
+    try { var t = localStorage.getItem('videoboy.theme'); if (t === 'classic' || t === 'night') document.documentElement.dataset.pageTheme = t; } catch (e) {}
+  </script>
   <script type="module" src="/demo/main.ts"></script>
 </head>
 <body>
@@ -31,6 +35,12 @@
         <li><a href="https://github.com/Eminence14/videoboy">GitHub</a></li>
       </ul>
     </nav>
+    <fieldset class="theme-switch">
+      <legend>Theme</legend>
+      <label title="Tangerine"><input type="radio" name="page-theme" value="tangerine" checked aria-label="Tangerine theme" /><span class="sw" style="--a:#F26A1B;--b:#F9D7A8;--c:#EADAC0" aria-hidden="true"></span></label>
+      <label title="Classic"><input type="radio" name="page-theme" value="classic" aria-label="Classic theme" /><span class="sw" style="--a:#A3184F;--b:#8BAC0F;--c:#C9C5BE" aria-hidden="true"></span></label>
+      <label title="Night"><input type="radio" name="page-theme" value="night" aria-label="Night theme" /><span class="sw" style="--a:#4FC8F5;--b:#144A6C;--c:#2A2B32" aria-hidden="true"></span></label>
+    </fieldset>
   </header>
 
   <main id="main">
@@ -78,9 +88,9 @@
         <p>The handheld’s best-known part is its screen, so that is what carries the idea. Pause, and the frame pixelates, then snaps to four tones of a reflective LCD. Every stop gets its own screen: a boot logo, a start menu, a pause window, an end card, and static when the signal drops.</p>
       </div>
       <ol class="trio">
-        <li><figure><img src="/states/tangerine-720-03-playing.webp" alt="VIDEOBOY playing: the film in full colour inside the bezel, a caption at the foot, the console below." width="720" height="531" loading="lazy" /><figcaption><b>Plays</b> in full colour. Nothing sits on the picture but captions.</figcaption></figure></li>
-        <li><figure><img src="/states/tangerine-720-09-paused.webp" alt="VIDEOBOY paused: the same frame redrawn as tangerine dot-matrix pixels with a small Pause window." width="720" height="531" loading="lazy" /><figcaption><b>Stops</b> in four tones. Pixelates in, snaps to the panel.</figcaption></figure></li>
-        <li><figure><img src="/states/tangerine-720-11-ended.webp" alt="VIDEOBOY at the end: the last frame in dot-matrix with a window reading The end, A to play again." width="720" height="531" loading="lazy" /><figcaption><b>Ends</b> on its own card. Play, or X, runs it again.</figcaption></figure></li>
+        <li><figure><img data-themed="/states/{t}-720-03-playing.webp" src="/states/tangerine-720-03-playing.webp" alt="VIDEOBOY playing: the film in full colour inside the bezel, a caption at the foot, the console below." width="720" height="531" loading="lazy" /><figcaption><b>Plays</b> in full colour. Nothing sits on the picture but captions.</figcaption></figure></li>
+        <li><figure><img data-themed="/states/{t}-720-09-paused.webp" src="/states/tangerine-720-09-paused.webp" alt="VIDEOBOY paused: the same frame redrawn as four-tone dot-matrix pixels with a small Pause window." width="720" height="531" loading="lazy" /><figcaption><b>Stops</b> in four tones. Pixelates in, snaps to the panel.</figcaption></figure></li>
+        <li><figure><img data-themed="/states/{t}-720-11-ended.webp" src="/states/tangerine-720-11-ended.webp" alt="VIDEOBOY at the end: the last frame in dot-matrix with a window reading The end, Play, X to watch again." width="720" height="531" loading="lazy" /><figcaption><b>Ends</b> on its own card. Play, or X, runs it again.</figcaption></figure></li>
       </ol>
     </section>
 
@@ -91,7 +101,7 @@
       <p class="intro">Nothing on the console is decoration. Each part is a Video.js v10 component, and each one shows its state on its face.</p>
       <figure class="anatomy">
         <div class="anatomy-art">
-          <img src="/states/anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 menu key, 5 fullscreen key, 6 mute key, 7 play key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
+          <img data-themed="/states/{t}-anatomy.webp" src="/states/tangerine-anatomy.webp" alt="The VIDEOBOY console, numbered: 1 power LED, 2 D-pad, 3 seek strip with cartridge thumb, 4 menu key, 5 fullscreen key, 6 mute key, 7 play key, 8 speaker grille." width="1200" height="812" loading="lazy" id="anatomy-img" />
           <ol class="pins" aria-hidden="true" id="pins"></ol>
         </div>
         <ol class="parts">
@@ -195,7 +205,7 @@
       <p class="num">07 · Accessibility</p>
       <h2 id="access-title">Checked, not assumed.</h2>
       <ul class="checks" id="checks">
-        <li><b id="axe-count">0</b><span>axe-core violations in 91 runs: WCAG 2.2 A/AA and best-practice rules, three themes, at 1100, 640 and 360 px, in ten states from boot through the menu to error, plus this page.</span></li>
+        <li><b id="axe-count">0</b><span>axe-core violations in 96 runs: WCAG 2.2 A/AA and best-practice rules, three themes, at 1100, 640 and 360 px, in ten states from boot through the menu to error, plus this page in all three themes at desktop and phone widths.</span></li>
         <li><b>3 px</b><span>Focus ring on every control, offset from the key so it reads on any shell colour.</span></li>
         <li><b>Names</b><span>Every key is a Video.js button with its own name and shortcut. The LCD is drawn for the eyes and hidden from screen readers; the status announcer speaks play, pause, seek and volume changes.</span></li>
         <li><b>Captions</b><span>Set in the system sans on dark plates, never in the pixel font, sized to the player.</span></li>
@@ -220,7 +230,7 @@ npm i @videojs/html @videojs/mux-video</code></pre>
 <span class="k">import</span> <span class="s">'@videojs/html/media/mux-video'</span>;</code></pre>
       </div>
       <pre class="code" tabindex="0"><code>&lt;video-player&gt;
-  &lt;videoboy-skin data-theme="tangerine" poster-time="36"&gt;
+  &lt;videoboy-skin data-theme="<span id="install-theme">tangerine</span>" poster-time="36"&gt;
     &lt;mux-video src="https://stream.mux.com/YOUR_PLAYBACK_ID.m3u8" playsinline crossorigin="anonymous"&gt;&lt;/mux-video&gt;
   &lt;/videoboy-skin&gt;
 &lt;/video-player&gt;</code></pre>
