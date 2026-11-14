@@ -118,46 +118,6 @@ document.addEventListener('change', (e) => {
   if ((i.name === 'hero-theme' || i.name === 'page-theme') && i.checked) setTheme(i.value as Theme, { fade: true, save: true });
 });
 
-/* ---------------------------------------------------------------- gallery, captured from the real player */
-const STATES: [string, string, string][] = [
-  ['01-boot', 'Boot', 'The logo drops in on load'],
-  ['02-start', 'Start', 'Before first play'],
-  ['03-playing', 'Playing', ''],
-  ['04-scrub', 'Seeking', 'With a preview frame'],
-  ['05-volume', 'Volume', ''],
-  ['06-muted', 'Muted', ''],
-  ['07-tooltip', 'Tooltip', 'Name and shortcut'],
-  ['08-focus', 'Keyboard focus', ''],
-  ['09-paused', 'Paused', ''],
-  ['10-buffering', 'Buffering', ''],
-  ['11-ended', 'Ended', ''],
-  ['12-menu', 'Menu', ''],
-  ['13-fullscreen', 'Fullscreen', ''],
-  ['14-fullscreen-idle', 'Fullscreen, idle', 'Controls step away after 2 s'],
-  ['15-error', 'Error', ''],
-];
-const gallery = document.getElementById('gallery');
-if (gallery) {
-  gallery.innerHTML = STATES.map(
-    ([id, name, text], i) => `<li><figure><button type="button" class="shot" data-themed="/states/{t}-720-${id}.webp" data-full="/states/${theme}-720-${id}.webp" aria-label="Enlarge: ${name}"><img data-themed="/states/{t}-720-${id}.webp" src="/states/${theme}-720-${id}.webp" alt="" loading="lazy" decoding="async"></button><figcaption><span class="idx">${String(i + 1).padStart(2, '0')}</span><b>${name}</b>${text ? ` ${text}` : ''}</figcaption></figure></li>`
-  ).join('');
-}
-
-/* Lightbox: a native dialog, so focus and Escape behave. */
-const dlg = document.createElement('dialog');
-dlg.className = 'lightbox';
-dlg.innerHTML = '<form method="dialog"><button class="lb-close" aria-label="Close">Close</button></form><img alt="">';
-document.body.append(dlg);
-document.addEventListener('click', (e) => {
-  const b = (e.target as HTMLElement).closest<HTMLButtonElement>('.shot');
-  if (!b) return;
-  const img = dlg.querySelector('img')!;
-  img.src = b.dataset.full!;
-  img.alt = b.getAttribute('aria-label')!.replace('Enlarge: ', '') + ' state, enlarged';
-  dlg.showModal();
-});
-dlg.addEventListener('click', (e) => e.target === dlg && dlg.close());
-
 /* ---------------------------------------------------------------- sizes */
 const SIZES: [string, string, string][] = [
   ['1100', 'Wide · 900 px and up', 'Everything on one row.'],
@@ -165,22 +125,14 @@ const SIZES: [string, string, string][] = [
   ['420', 'Small · 300 to 459 px', 'The grille steps out; the D-pad still sets the volume.'],
   ['280', 'Extra small · under 300 px', 'The duration and key labels drop; the keys keep their size.'],
 ];
+// Intrinsic sizes reserve the space, so the layout never jumps while a picture arrives.
+const SIZE_PX: Record<string, [number, number]> = { '1100': [1600, 1098], '640': [1280, 1064], '420': [840, 798], '280': [560, 640] };
 const sizes = document.getElementById('sizes-list');
 if (sizes) {
   sizes.innerHTML = SIZES.map(
-    ([w, name, text]) => `<li style="--w:${w}"><figure><img data-themed="/states/{t}-size-${w}.webp" src="/states/${theme}-size-${w}.webp" alt="VIDEOBOY at ${w} pixels wide" loading="lazy" decoding="async"><figcaption><b>${name}</b> ${text}</figcaption></figure></li>`
+    ([w, name, text]) => `<li style="--w:${w}"><figure><img data-themed="/states/{t}-size-${w}.webp" src="/states/${theme}-size-${w}.webp" alt="VIDEOBOY at ${w} pixels wide" width="${SIZE_PX[w][0]}" height="${SIZE_PX[w][1]}" decoding="async" fetchpriority="low"><figcaption><b>${name}</b> ${text}</figcaption></figure></li>`
   ).join('');
 }
-
-/* ---------------------------------------------------------------- anatomy pins */
-fetch('/states/anatomy.json')
-  .then((r) => (r.ok ? r.json() : null))
-  .then((pins: { x: number; y: number }[] | null) => {
-    const ol = document.getElementById('pins');
-    if (!pins || !ol) return;
-    ol.innerHTML = pins.map((p, i) => `<li style="left:${p.x}%;top:${p.y}%">${i + 1}</li>`).join('');
-  })
-  .catch(() => {});
 
 /* ---------------------------------------------------------------- playground */
 const labSkin = document.getElementById('lab-skin')!;
@@ -260,5 +212,5 @@ document.getElementById('lab-reset')!.addEventListener('click', () => {
 });
 applyLab();
 
-// Apply the saved theme once the gallery and sizes are in place.
+// Apply the saved theme once the sizes are in place.
 setTheme(theme);
