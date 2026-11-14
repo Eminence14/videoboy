@@ -7,3 +7,4 @@ Thumbs.db
 
 # film footage (Blender clips pulled from Mux for the showcase render)
 dev/film/
+dist-embed/

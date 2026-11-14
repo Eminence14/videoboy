@@ -96,6 +96,24 @@ Keyboard, laid out like a handheld emulator:
 
 With `keyboard="page"` on `<videoboy-skin>`, these work anywhere on the page, not only when the player has focus. Keys typed in fields, pressed on page controls, or inside another player are left alone.
 
+## Drop-in build, for sites without a bundler
+
+```bash
+npm run build:embed   # dist-embed/videoboy.js and videoboy.css: the skin, Video.js v10 and <mux-video>
+```
+
+```html
+<link rel="stylesheet" href="videoboy.css">
+<script type="module" src="videoboy.js"></script>
+<video-player>
+  <videoboy-skin data-theme="tangerine">
+    <mux-video src="https://stream.mux.com/YOUR_PLAYBACK_ID.m3u8" playsinline crossorigin="anonymous"></mux-video>
+  </videoboy-skin>
+</video-player>
+```
+
+This is how VIDEOBOY plays the suspension motion study on [cad.victoribidunmoye.me](https://cad.victoribidunmoye.me/#/double-wishbone-front-suspension).
+
 ## Accessibility
 
 ```bash

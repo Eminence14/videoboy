@@ -10,7 +10,8 @@
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "test:a11y": "vite build && node tests/a11y.mjs"
+    "test:a11y": "vite build && node tests/a11y.mjs",
+    "build:embed": "vite build --config vite.embed.config.ts"
   },
   "dependencies": {
     "@videojs/html": "^10.4.0",
